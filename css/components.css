@@ -1,0 +1,189 @@
+/* ============================================================
+   Tatum Schultz Portfolio — Component styles
+   components.css  (requires colors_and_type.css)
+   No heavy shadows. Depth = color contrast on cream canvas.
+   ============================================================ */
+
+/* ---------- Buttons ---------- */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-xs);
+  height: 44px;
+  padding: 12px 20px;
+  border-radius: var(--radius-md);
+  border: 1px solid transparent;
+  font-family: var(--font-ui);
+  font-size: var(--fs-button);
+  font-weight: 400;
+  letter-spacing: var(--ls-button);
+  line-height: 1;
+  cursor: pointer;
+  transition: background-color .18s ease, color .18s ease, border-color .18s ease;
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.btn-primary { background: var(--primary); color: var(--on-primary); }
+.btn-primary:hover { background: var(--primary-active); }
+.btn-primary:disabled,
+.btn-primary[aria-disabled="true"] {
+  background: var(--primary-disabled);
+  color: var(--muted);
+  cursor: not-allowed;
+}
+
+.btn-secondary {
+  background: var(--canvas);
+  color: var(--ink);
+  border-color: var(--hairline);
+}
+.btn-secondary:hover { border-color: var(--ink); }
+
+/* white button used over saturated brand-color cards */
+.btn-on-color { background: var(--canvas); color: var(--ink); }
+.btn-on-color:hover { background: #fff; }
+
+.btn-text {
+  background: transparent;
+  color: var(--ink);
+  height: auto;
+  padding: 0;
+}
+.btn-text:hover { text-decoration: underline; text-underline-offset: 3px; }
+
+/* ---------- Top nav ---------- */
+.top-nav {
+  height: 64px;
+  background: var(--canvas);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 var(--space-xl);
+}
+.top-nav .nav-links { display: flex; gap: var(--space-lg); align-items: center; }
+.top-nav .nav-links a {
+  font-family: var(--font-ui);
+  font-size: var(--fs-nav);
+  font-weight: 300;
+  color: var(--ink);
+  text-decoration: none;
+}
+.top-nav .nav-links a:hover { color: var(--muted); }
+
+/* ---------- Feature cards (radius xl, padding xl, no shadow) ---------- */
+.feature-card {
+  border-radius: var(--radius-xl);
+  padding: var(--space-xl);
+}
+.feature-card .fc-title {
+  font-family: var(--font-ui);
+  font-size: var(--fs-title-md);
+  font-weight: 400;
+  margin: 0 0 var(--space-sm);
+}
+.feature-card .fc-body { font-size: var(--fs-body-sm); line-height: var(--lh-body-sm); }
+
+.fc-slate-blue { background: var(--brand-slate-blue); color: var(--brand-soft-moon); }
+.fc-slate-blue .fc-body { color: var(--on-dark); }
+.fc-charcoal   { background: var(--brand-charcoal);   color: var(--on-dark); }
+.fc-charcoal   .fc-body { color: var(--on-dark-soft); }
+.fc-soft-moon  { background: var(--brand-soft-moon);  color: var(--ink); }
+.fc-soft-moon  .fc-body { color: var(--body); }
+.fc-linen      { background: var(--brand-linen);      color: var(--ink); }
+.fc-linen      .fc-body { color: var(--body); }
+.fc-cream      { background: var(--brand-cream);      color: var(--ink); border: 1px solid var(--hairline); }
+.fc-cream      .fc-body { color: var(--body); }
+
+/* ---------- Content cards (radius lg) ---------- */
+.product-mockup-card {
+  background: var(--canvas);
+  border: 1px solid var(--hairline);
+  border-radius: var(--radius-lg);
+  padding: var(--space-lg);
+}
+.testimonial-card {
+  background: var(--surface-card);
+  border-radius: var(--radius-lg);
+  padding: var(--space-lg);
+}
+.expert-card {
+  background: var(--canvas);
+  border: 1px solid var(--hairline);
+  border-radius: var(--radius-lg);
+  padding: var(--space-lg);
+}
+
+/* ---------- Pricing tiers ---------- */
+.pricing-tier {
+  background: var(--canvas);
+  border: 1px solid var(--hairline);
+  border-radius: var(--radius-lg);
+  padding: var(--space-xl);
+}
+.pricing-tier-featured {
+  background: var(--brand-charcoal);
+  color: var(--on-dark);
+  border-radius: var(--radius-lg);
+  padding: var(--space-xl);
+}
+
+/* ---------- Inputs ---------- */
+.text-input {
+  height: 44px;
+  background: var(--canvas);
+  color: var(--ink);
+  border: 1px solid var(--hairline);
+  border-radius: var(--radius-md);
+  padding: 12px 16px;
+  font-family: var(--font-ui);
+  font-size: var(--fs-body-md);
+  width: 100%;
+  box-sizing: border-box;
+}
+.text-input::placeholder { color: var(--muted-soft); }
+.text-input:focus { outline: none; border-color: var(--ink); border-width: 1px; }
+
+/* ---------- Tabs ---------- */
+.category-tab {
+  background: transparent;
+  color: var(--muted);
+  border: none;
+  border-radius: var(--radius-pill);
+  padding: 8px 16px;
+  font-family: var(--font-ui);
+  font-size: var(--fs-nav);
+  font-weight: 300;
+  cursor: pointer;
+}
+.category-tab.active { background: var(--surface-card); color: var(--ink); }
+
+/* ---------- Badge pill ---------- */
+.badge-pill {
+  display: inline-flex;
+  align-items: center;
+  background: var(--surface-card);
+  color: var(--ink);
+  border-radius: var(--radius-pill);
+  padding: 4px 12px;
+  font-family: var(--font-ui);
+  font-size: var(--fs-caption);
+  font-weight: 300;
+}
+
+/* ---------- CTA band ---------- */
+.cta-band {
+  background: var(--surface-soft);
+  border-radius: var(--radius-xl);
+  padding: 80px;
+  text-align: center;
+}
+
+/* ---------- Footer (warm, never dark) ---------- */
+.site-footer {
+  background: var(--surface-soft);
+  color: var(--body);
+  padding: 80px var(--space-xl);
+  font-size: var(--fs-body-sm);
+}

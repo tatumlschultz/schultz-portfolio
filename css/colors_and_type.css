@@ -1,0 +1,243 @@
+/* ============================================================
+   Tatum Schultz Portfolio — Design Tokens
+   colors_and_type.css
+
+   Fonts:
+   - Display: Optima (system font on macOS/iOS). Web fallback is
+     Cormorant Garamond (Google Fonts) — a flared, editorial face.
+     Mac/iOS users render real Optima; everyone else gets the fallback.
+     NOTE: Cormorant Garamond is a *serif* substitute for a flared
+     humanist *sans* — flagged for the user. Supply an Optima webfont
+     to make this pixel-faithful everywhere.
+   - UI / body: Poppins (Google Fonts) weights 300 + 400 only.
+
+   Import in HTML <head>:
+   <link rel="preconnect" href="https://fonts.googleapis.com">
+   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400&family=Poppins:wght@300;400&display=swap" rel="stylesheet">
+   ============================================================ */
+
+:root {
+  /* ---------- Font families ---------- */
+  --font-display: "Optima", "Candara", "Cormorant Garamond", "Gill Sans Nova", serif;
+  --font-ui: "Poppins", system-ui, -apple-system, sans-serif;
+
+  /* ============================================================
+     COLOR — Brand & Accent (the 5-color palette)
+     ============================================================ */
+  --brand-cream:       #F7F5F1;
+  --brand-linen:       #E0DCD1;
+  --brand-slate-blue:  #9398B4;
+  --brand-soft-moon:   #F4F0B5;
+  --brand-charcoal:    #363E4F;
+
+  /* ---------- Primary / interactive ---------- */
+  --primary:           #0a0a0a;
+  --primary-active:    #1f1f1f;
+  --primary-disabled:  #e5e5e5;
+
+  /* ---------- Surface ---------- */
+  --canvas:               #F7F5F1;
+  --surface-soft:         #F7F5F1;
+  --surface-card:         #E0DCD1;
+  --surface-strong:       #E0DCD1;
+  --surface-dark:         #363E4F;
+  --surface-dark-elevated:#4A5468;
+
+  /* ---------- Text / foreground ---------- */
+  --ink:          #0a0a0a;   /* fg1 — headlines, primary text */
+  --body-strong:  #1a1a1a;   /* fg2 — emphasized body, leads  */
+  --body:         #3a3a3a;   /* fg3 — default running text    */
+  --muted:        #6a6a6a;   /* fg4 — subheads, breadcrumbs   */
+  --muted-soft:   #9a9a9a;   /* fg5 — captions, fine print    */
+  --on-primary:   #F7F5F1;   /* text on near-black buttons    */
+  --on-dark:      #F7F5F1;   /* text on charcoal/slate cards  */
+  --on-dark-soft: #9398B4;   /* secondary text on dark cards  */
+
+  /* ---------- Lines ---------- */
+  --hairline:      #e5e5e5;
+  --hairline-soft: #f0f0f0;
+
+  /* ---------- Semantic ---------- */
+  --success: #22c55e;
+  --warning: #f59e0b;
+  --error:   #ef4444;
+
+  /* ============================================================
+     RADII
+     ============================================================ */
+  --radius-xs:   6px;
+  --radius-sm:   8px;
+  --radius-md:   12px;  /* buttons, inputs */
+  --radius-lg:   16px;  /* content cards */
+  --radius-xl:   24px;  /* feature cards */
+  --radius-pill: 9999px;
+  --radius-full: 9999px;
+
+  /* ============================================================
+     SPACING — base unit 4px
+     ============================================================ */
+  --space-xxs:     4px;
+  --space-xs:      8px;
+  --space-sm:      12px;
+  --space-md:      16px;
+  --space-lg:      24px;
+  --space-xl:      32px;
+  --space-xxl:     48px;
+  --space-section: 96px;
+
+  /* ============================================================
+     TYPE SCALE — raw tokens
+     Display = Optima 400 (italic for hero). Body = Poppins 400.
+     Labels / nav / captions = Poppins 300. Never bolder than 400.
+     ============================================================ */
+  --fs-display-xl: 72px; --lh-display-xl: 1;     --ls-display-xl: -1.5px;
+  --fs-display-lg: 56px; --lh-display-lg: 1.05;  --ls-display-lg: -1px;
+  --fs-display-md: 40px; --lh-display-md: 1.1;   --ls-display-md: -0.5px;
+  --fs-display-sm: 32px; --lh-display-sm: 1.15;  --ls-display-sm: -0.3px;
+
+  --fs-title-lg: 24px; --lh-title-lg: 1.3; --ls-title-lg: -0.2px;
+  --fs-title-md: 18px; --lh-title-md: 1.4; --ls-title-md: 0;
+  --fs-title-sm: 16px; --lh-title-sm: 1.4; --ls-title-sm: 0;
+
+  --fs-body-md: 16px; --lh-body-md: 1.65;
+  --fs-body-sm: 14px; --lh-body-sm: 1.65;
+
+  --fs-caption: 13px;
+  --fs-caption-up: 12px; --ls-caption-up: 1.5px;
+  --fs-button: 14px; --ls-button: 0.3px;
+  --fs-nav: 14px;
+}
+
+/* ============================================================
+   SEMANTIC TYPE CLASSES
+   Display headlines: Optima 400. Hero (.display-xl) is italic.
+   ============================================================ */
+.display-xl {
+  font-family: var(--font-display);
+  font-size: var(--fs-display-xl);
+  font-weight: 400;
+  font-style: italic;
+  line-height: var(--lh-display-xl);
+  letter-spacing: var(--ls-display-xl);
+  color: var(--ink);
+}
+.display-lg {
+  font-family: var(--font-display);
+  font-size: var(--fs-display-lg);
+  font-weight: 400;
+  line-height: var(--lh-display-lg);
+  letter-spacing: var(--ls-display-lg);
+  color: var(--ink);
+}
+.display-md {
+  font-family: var(--font-display);
+  font-size: var(--fs-display-md);
+  font-weight: 400;
+  line-height: var(--lh-display-md);
+  letter-spacing: var(--ls-display-md);
+  color: var(--ink);
+}
+.display-sm {
+  font-family: var(--font-display);
+  font-size: var(--fs-display-sm);
+  font-weight: 400;
+  line-height: var(--lh-display-sm);
+  letter-spacing: var(--ls-display-sm);
+  color: var(--ink);
+}
+
+.title-lg {
+  font-family: var(--font-ui);
+  font-size: var(--fs-title-lg);
+  font-weight: 400;
+  line-height: var(--lh-title-lg);
+  letter-spacing: var(--ls-title-lg);
+  color: var(--ink);
+}
+.title-md {
+  font-family: var(--font-ui);
+  font-size: var(--fs-title-md);
+  font-weight: 400;
+  line-height: var(--lh-title-md);
+  color: var(--ink);
+}
+.title-sm {
+  font-family: var(--font-ui);
+  font-size: var(--fs-title-sm);
+  font-weight: 400;
+  line-height: var(--lh-title-sm);
+  color: var(--ink);
+}
+
+.body-md {
+  font-family: var(--font-ui);
+  font-size: var(--fs-body-md);
+  font-weight: 400;
+  line-height: var(--lh-body-md);
+  color: var(--body);
+}
+.body-sm {
+  font-family: var(--font-ui);
+  font-size: var(--fs-body-sm);
+  font-weight: 400;
+  line-height: var(--lh-body-sm);
+  color: var(--body);
+}
+
+.caption {
+  font-family: var(--font-ui);
+  font-size: var(--fs-caption);
+  font-weight: 300;
+  line-height: 1.4;
+  color: var(--muted);
+}
+.caption-uppercase {
+  font-family: var(--font-ui);
+  font-size: var(--fs-caption-up);
+  font-weight: 300;
+  line-height: 1.4;
+  letter-spacing: var(--ls-caption-up);
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+/* ============================================================
+   ELEMENT DEFAULTS — map raw HTML tags onto the scale
+   ============================================================ */
+body {
+  background: var(--canvas);
+  color: var(--body);
+  font-family: var(--font-ui);
+  font-size: var(--fs-body-md);
+  font-weight: 400;
+  line-height: var(--lh-body-md);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+h1 { font: 400 italic var(--fs-display-xl)/var(--lh-display-xl) var(--font-display); letter-spacing: var(--ls-display-xl); color: var(--ink); margin: 0; }
+h2 { font: 400 var(--fs-display-lg)/var(--lh-display-lg) var(--font-display); letter-spacing: var(--ls-display-lg); color: var(--ink); margin: 0; }
+h3 { font: 400 var(--fs-display-md)/var(--lh-display-md) var(--font-display); letter-spacing: var(--ls-display-md); color: var(--ink); margin: 0; }
+h4 { font: 400 var(--fs-title-lg)/var(--lh-title-lg) var(--font-ui); letter-spacing: var(--ls-title-lg); color: var(--ink); margin: 0; }
+p  { font: 400 var(--fs-body-md)/var(--lh-body-md) var(--font-ui); color: var(--body); margin: 0; }
+
+a { color: var(--ink); text-decoration: underline; text-underline-offset: 3px; }
+small { font-size: var(--fs-body-sm); }
+
+/* ============================================================
+   BUTTON + LABEL TYPE HELPERS
+   ============================================================ */
+.t-button {
+  font-family: var(--font-ui);
+  font-size: var(--fs-button);
+  font-weight: 400;
+  line-height: 1;
+  letter-spacing: var(--ls-button);
+}
+.t-nav {
+  font-family: var(--font-ui);
+  font-size: var(--fs-nav);
+  font-weight: 300;
+  line-height: 1.4;
+}
