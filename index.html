@@ -1,0 +1,567 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Tatum Schultz, Marketing Professional</title>
+<script>
+  /* No-flash page-transition init: if we arrived from a card click,
+     mark the page as covered before it paints. */
+  (function(){try{var t=JSON.parse(sessionStorage.getItem('pageTransition')||'null');
+    if(t&&t.incoming&&!(window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches)){
+      var d=document.documentElement;d.classList.add('xt-incoming');
+      d.style.setProperty('--xt-c1',t.c1);d.style.setProperty('--xt-c2',t.c2);}}catch(e){}})();
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Poppins:wght@300;400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/colors_and_type.css">
+<link rel="stylesheet" href="css/components.css">
+<link rel="stylesheet" href="css/site.css">
+<script src="https://unpkg.com/lucide@0.456.0/dist/umd/lucide.min.js"></script>
+<script src="image-slot.js"></script>
+<style>
+  /* ---------- Hero ---------- */
+  .hero { padding: clamp(48px, 8vw, 104px) 0 var(--space-section); }
+  .hero__grid {
+    display: grid;
+    grid-template-columns: 0.9fr 1.1fr;
+    gap: clamp(32px, 5vw, 72px);
+    align-items: center;
+  }
+  @media (max-width: 900px) { .hero__grid { grid-template-columns: 1fr; gap: var(--space-xxl); } }
+
+  .hero__intro {
+    font-family: var(--font-ui);
+    font-weight: 300;
+    font-size: clamp(16px, 1.6vw, 19px);
+    color: var(--muted);
+    letter-spacing: .2px;
+    margin: 0;
+  }
+  .hero__name {
+    font: 400 italic clamp(48px, 7vw, 84px)/0.98 var(--font-display);
+    letter-spacing: -2px;
+    color: var(--ink);
+    margin: var(--space-sm) 0 var(--space-lg);
+  }
+  .hero__bio {
+    font-family: var(--font-ui);
+    font-size: clamp(16px, 1.5vw, 18px);
+    line-height: 1.7;
+    font-weight: 300;
+    color: var(--body);
+    max-width: 46ch;
+    margin: 0;
+  }
+  .hero__kicker {
+    font-family: var(--font-display);
+    font-style: italic;
+    font-size: clamp(20px, 2.4vw, 27px);
+    line-height: 1.35;
+    color: var(--brand-slate-blue);
+    max-width: 26ch;
+    margin: 0;
+  }
+
+  /* right-side work list */
+  .worklist { display: flex; flex-direction: column; align-items: flex-end; text-align: right; gap: var(--space-md); padding-top: 6px; }
+  .worklist a {
+    font: 400 clamp(30px, 4.4vw, 52px)/1.02 var(--font-display);
+    letter-spacing: -1px;
+    color: var(--ink);
+    text-decoration: none;
+    transition: color .18s ease;
+    display: flex;
+    align-items: baseline;
+    justify-content: flex-end;
+    gap: 10px;
+    white-space: nowrap;
+  }
+  .worklist a:hover { color: var(--brand-slate-blue); }
+  .worklist a .n {
+    font-family: var(--font-ui);
+    font-weight: 300;
+    font-size: var(--fs-caption);
+    color: var(--muted-soft);
+    letter-spacing: 0;
+    flex: none;
+  }
+  .worklist__cap {
+    margin-top: var(--space-md);
+    font-family: var(--font-ui);
+    font-size: var(--fs-caption);
+    font-weight: 300;
+    color: var(--muted);
+    letter-spacing: .3px;
+  }
+
+  /* work cards (right column) */
+  .workcards { display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-md); padding-top: 6px; }
+  @media (max-width: 560px) { .workcards { grid-template-columns: 1fr; } }
+  .disc {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    min-height: 196px;
+    padding: var(--space-lg);
+    border-radius: var(--radius-xl);
+    text-decoration: none;
+    overflow: hidden;
+    transition: transform .3s cubic-bezier(.2,.7,.3,1);
+  }
+  .disc:hover { transform: translateY(-5px); }
+  .disc__no { font-family: var(--font-ui); font-weight: 300; font-size: var(--fs-caption); letter-spacing: 1.5px; opacity: .75; }
+  .disc__name { margin-top: auto; font: 400 clamp(24px, 2.2vw, 32px)/1.02 var(--font-display); letter-spacing: -.5px; }
+  .disc__desc { font-family: var(--font-ui); font-weight: 300; font-size: var(--fs-caption); line-height: 1.5; margin: 8px 0 0; max-width: 30ch; }
+  .disc__go { margin-top: var(--space-md); display: inline-flex; align-items: center; gap: 8px; font-family: var(--font-ui); font-weight: 300; font-size: var(--fs-caption); }
+  .disc__go svg { width: 15px; height: 15px; transition: transform .25s ease; }
+  .disc:hover .disc__go svg { transform: translateX(5px); }
+
+  /* ---------- Education ---------- */
+  .section { padding: var(--space-section) 0; }
+  .section--tight { padding: var(--space-xxl) 0; }
+  .edu-row {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    align-items: baseline;
+    gap: var(--space-lg);
+    padding: var(--space-xl) 0;
+    border-bottom: 1px solid var(--hairline);
+  }
+  .edu-row:first-of-type { border-top: 1px solid var(--hairline); }
+  .edu-row__title { font: 400 var(--fs-display-sm)/1.1 var(--font-display); letter-spacing: var(--ls-display-sm); color: var(--ink); margin-bottom: 6px; }
+  .edu-row__sub { font-family: var(--font-ui); font-size: var(--fs-body-sm); font-weight: 300; color: var(--muted); }
+  .edu-row__years { font-family: var(--font-ui); font-size: var(--fs-body-sm); font-weight: 300; color: var(--muted); white-space: nowrap; }
+  @media (max-width: 600px) { .edu-row { grid-template-columns: 1fr; } }
+
+  .section__head { margin-bottom: var(--space-xl); }
+
+  /* ---------- Connect ---------- */
+  .connect-grid { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(32px, 6vw, 96px); }
+  @media (max-width: 720px) { .connect-grid { grid-template-columns: 1fr; gap: var(--space-xxl); } }
+  .connect-grid h3 { font: 400 var(--fs-display-sm)/1.1 var(--font-display); color: var(--ink); margin-bottom: var(--space-lg); }
+  .contact-line {
+    display: flex;
+    align-items: center;
+    gap: var(--space-md);
+    padding: var(--space-md) 0;
+    border-bottom: 1px solid var(--hairline);
+    text-decoration: none;
+    color: var(--ink);
+    font-family: var(--font-ui);
+    font-size: var(--fs-body-md);
+    font-weight: 300;
+    transition: color .15s ease;
+  }
+  .contact-line:hover { color: var(--brand-slate-blue); }
+  .contact-line:hover .ci { color: var(--brand-slate-blue); }
+  .contact-line:first-child { border-top: 1px solid var(--hairline); }
+  .ci { color: var(--brand-slate-blue); flex: none; transition: color .15s ease; }
+  .ci svg { width: 19px; height: 19px; }
+  .muted-note { font-family: var(--font-ui); font-size: var(--fs-body-sm); font-weight: 300; color: var(--muted); margin-top: var(--space-md); }
+
+  /* ---------- Brand footer (scroll-bounce wave) ---------- */
+  .brand-footer { position: relative; margin: var(--space-section) var(--space-lg) var(--space-lg); border-radius: var(--radius-xl); overflow: hidden; }
+  @media (max-width: 720px) { .brand-footer { margin-left: var(--space-sm); margin-right: var(--space-sm); } }
+  .footer-wave { position: absolute; left: 0; top: 0; width: 100%; height: 100%; z-index: 0; display: block; }
+  .brand-footer__inner {
+    position: relative;
+    z-index: 1;
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: clamp(150px, 17vw, 220px) var(--space-xxl) var(--space-xl);
+  }
+  @media (max-width: 720px) { .brand-footer__inner { padding-left: var(--space-lg); padding-right: var(--space-lg); } }
+  .brand-footer .eyebrow { color: var(--brand-soft-moon); }
+  .brand-footer h3 { color: var(--on-dark); }
+  .brand-footer .contact-line { color: var(--on-dark); border-color: rgba(247,245,241,.20); }
+  .brand-footer .contact-line:first-child { border-top-color: rgba(247,245,241,.20); }
+  .brand-footer .contact-line:hover { color: var(--brand-soft-moon); }
+  .brand-footer .ci { color: var(--brand-soft-moon); }
+  .brand-footer .contact-line:hover .ci { color: var(--brand-soft-moon); }
+  .brand-footer .muted-note { color: var(--on-dark-soft); }
+  .brand-footer__bar {
+    display: flex; align-items: center; justify-content: space-between; gap: var(--space-md);
+    margin-top: var(--space-xxl); padding-top: var(--space-lg);
+    border-top: 1px solid rgba(247,245,241,.20);
+    font-family: var(--font-ui); font-weight: 300; font-size: var(--fs-body-sm); color: var(--on-dark-soft);
+  }
+  .brand-footer__mark { font-family: var(--font-display); font-style: italic; font-size: var(--fs-title-md); color: var(--brand-soft-moon); letter-spacing: .3px; }
+  .brand-footer__name { display: inline-flex; align-items: center; gap: var(--space-sm); }
+  .brand-footer__ig { display: inline-flex; color: var(--brand-soft-moon); transition: color .2s ease; }
+  .brand-footer__ig:hover { color: var(--on-dark); }
+  .brand-footer__ig i { width: 18px; height: 18px; }
+  @media (max-width: 720px) { .brand-footer__bar { flex-direction: column; align-items: flex-start; gap: var(--space-xs); } }
+
+  /* ---------- Skills (macOS dock) ---------- */
+  .dock-stage { position: relative; display: flex; justify-content: flex-start; align-items: flex-end; padding-top: 56px; }
+  .dock {
+    display: inline-flex; justify-content: center; align-items: flex-end;
+    margin: 0; padding: 11px 13px; list-style: none;
+    background: var(--brand-linen);
+    border-radius: 22px;
+  }
+  .dock-item { width: 50px; height: 50px; margin: 0 4px; will-change: transform; }
+  .dock-link { display: block; height: 100%; }
+  .dock-img {
+    display: block; width: 100%; height: 100%;
+    object-fit: contain; background: #fff;
+    border-radius: 14px;
+    box-shadow: 0 2px 7px rgba(54,62,79,.16);
+  }
+  .dock-tip {
+    position: absolute; bottom: 0; left: 0;
+    transform: translateX(-50%) translateY(6px);
+    padding: 5px 12px; border-radius: var(--radius-pill);
+    background: var(--brand-slate-blue); color: var(--brand-soft-moon);
+    font-family: var(--font-ui); font-weight: 300; font-size: var(--fs-caption);
+    white-space: nowrap; pointer-events: none; opacity: 0;
+    transition: opacity .15s ease, transform .15s ease;
+  }
+  .dock-tip.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+  @media (max-width: 1100px) {
+    .dock-stage { overflow-x: auto; padding-top: 18px; }
+    .dock-item { width: 44px; height: 44px; }
+  }
+
+  /* ---------- Featured work (carousel) ---------- */
+  .fw { padding: var(--space-section) 0 0; }
+  .fw__head { margin-bottom: var(--space-xl); }
+  .fw__viewport {
+    overflow: hidden; width: 100%;
+    -webkit-mask-image: linear-gradient(90deg, transparent, #000 4%, #000 96%, transparent);
+    mask-image: linear-gradient(90deg, transparent, #000 4%, #000 96%, transparent);
+  }
+  .fw__track { display: flex; width: max-content; animation: fw-scroll 80s linear infinite; }
+  .fw__viewport:hover .fw__track { animation-play-state: paused; }
+  .fw-card {
+    flex: none; height: 380px; margin-right: var(--space-md);
+    border-radius: var(--radius-xl); overflow: hidden;
+    background: var(--surface-card);
+  }
+  .fw-card image-slot { width: 100%; height: 100%; display: block; }
+  @keyframes fw-scroll { to { transform: translateX(-50%); } }
+  @media (prefers-reduced-motion: reduce) {
+    .fw__track { animation: none; }
+    .fw__viewport { overflow-x: auto; }
+  }
+</style>
+</head>
+<body>
+
+<!-- PAGE TRANSITION OVERLAY -->
+<div class="xt-overlay" aria-hidden="true">
+  <svg class="xt-svg" viewBox="0 0 100 100" preserveAspectRatio="none">
+    <defs>
+      <linearGradient id="xtGrad" x1="0" y1="0" x2="100" y2="100" gradientUnits="userSpaceOnUse">
+        <stop class="xt-s1" offset="0.15"></stop>
+        <stop class="xt-s2" offset="0.85"></stop>
+      </linearGradient>
+    </defs>
+    <path class="xt-path" fill="url(#xtGrad)" d="M 0 100 V 100 Q 50 100 100 100 V 100 z"></path>
+  </svg>
+  <div class="xt-label">
+    <span class="xt-title"></span>
+  </div>
+</div>
+
+<!-- NAV -->
+<nav class="nav">
+  <div class="nav__inner">
+    <div class="nav__links">
+      <div class="nav__dd">
+        <button class="nav__link" aria-haspopup="true">Work <i data-lucide="chevron-down" class="chev" style="width:15px;height:15px"></i></button>
+        <div class="nav__dd-menu" role="menu">
+          <a href="email-marketing.html">Email Marketing <i data-lucide="arrow-right" class="arr" style="width:15px;height:15px"></i></a>
+          <a href="social-media.html">Social Media Design <i data-lucide="arrow-right" class="arr" style="width:15px;height:15px"></i></a>
+          <a href="video-editing.html">Video Editing <i data-lucide="arrow-right" class="arr" style="width:15px;height:15px"></i></a>
+          <a href="photography.html">Photography <i data-lucide="arrow-right" class="arr" style="width:15px;height:15px"></i></a>
+        </div>
+      </div>
+      <a class="nav__link" href="#connect">Connect</a>
+    </div>
+  </div>
+</nav>
+<!-- HERO -->
+<header class="hero">
+  <div class="wrap" style="color: rgb(147, 152, 180)">
+    <div class="hero__grid">
+      <div class="reveal in">
+        <p class="hero__intro" style="font-size: 26px; font-weight: 500">Hi, my name is Tatum</p>
+        <h1 class="hero__name" style="color: rgb(54, 62, 80)">Marketing Professional</h1>
+        <p class="hero__bio">I&rsquo;m a data-driven marketer with a strong creative background. I use analytics and audience insights to inform strategy, then bring it to life through compelling copy, design, and campaign execution.</p>
+      </div>
+      <nav class="workcards reveal in" aria-label="Selected work">
+        <a class="disc fc-slate-blue" href="email-marketing.html" data-xt-c1="#9DA2BE" data-xt-c2="#7C82A4" data-xt-ink="#F4F0B5">
+          <span class="disc__no">01</span>
+          <span class="disc__name">Email Marketing</span>
+          <p class="disc__desc">Lifecycle, nurture, and re-engagement campaigns built from the data up.</p>
+          <span class="disc__go">View work <i data-lucide="arrow-right"></i></span>
+        </a>
+        <a class="disc fc-charcoal" href="social-media.html" data-xt-c1="#434B5E" data-xt-c2="#2B313F" data-xt-ink="#F7F5F1">
+          <span class="disc__no">02</span>
+          <span class="disc__name">Social Media Design</span>
+          <p class="disc__desc" style="color: rgb(255, 255, 255)">Feed, story, and short-form systems that hold a brand together.</p>
+          <span class="disc__go">View work <i data-lucide="arrow-right"></i></span>
+        </a>
+        <a class="disc fc-soft-moon" href="video-editing.html" data-xt-c1="#F6F2BE" data-xt-c2="#E4DD8E" data-xt-ink="#363E4F">
+          <span class="disc__no">03</span>
+          <span class="disc__name">Video Editing</span>
+          <p class="disc__desc">Cut, pace, and caption: short edits made for the scroll and the sound-off.</p>
+          <span class="disc__go">View work <i data-lucide="arrow-right"></i></span>
+        </a>
+        <a class="disc fc-linen" href="photography.html" data-xt-c1="#E8E4DA" data-xt-c2="#D3CDBF" data-xt-ink="#363E4F">
+          <span class="disc__no">04</span>
+          <span class="disc__name">Photography</span>
+          <p class="disc__desc">Product and lifestyle frames shot to feel warm, editorial, and on-brand.</p>
+          <span class="disc__go">View work <i data-lucide="arrow-right"></i></span>
+        </a>
+      </nav>
+    </div>
+  </div>
+</header>
+
+<!-- FEATURED WORK -->
+<section class="section section--tight fw" id="featured">
+  <div class="wrap">
+    <div class="fw__head reveal"><p class="eyebrow">Featured work</p></div>
+  </div>
+  <div class="fw__viewport reveal">
+    <div class="fw__track" id="fwTrack">
+      <div class="fw-card" style="width:304px"><image-slot id="fw1" shape="rect" fit="cover" position="50% 0%" placeholder="Mobile app" src="assets/featured/leighton-aloha.jpg"></image-slot></div>
+      <div class="fw-card" style="width:304px"><image-slot id="fw2" shape="rect" fit="cover" placeholder="Brand identity" src="assets/featured/fatj-marcus.jpg"></image-slot></div>
+      <div class="fw-card" style="width:304px"><image-slot id="fw3" shape="rect" fit="cover" position="50% 0%" placeholder="Web dashboard" src="assets/featured/hh-application.jpg"></image-slot></div>
+      <div class="fw-card" style="width:304px"><image-slot id="fw9" shape="rect" fit="cover" placeholder="Campaign" src="assets/featured/leighton-hibiscus.jpg"></image-slot></div>
+      <div class="fw-card" style="width:304px"><image-slot id="fw6" shape="rect" fit="cover" placeholder="Social" src="assets/featured/hh-maintenance.jpg"></image-slot></div>
+      <div class="fw-card" style="width:304px"><image-slot id="fw7" shape="rect" fit="cover" placeholder="Campaign" src="assets/featured/fatj-industry2.jpg"></image-slot></div>
+      <div class="fw-card" style="width:304px"><image-slot id="fw8" shape="rect" fit="cover" placeholder="Campaign" src="assets/featured/leighton-giveaway.jpg"></image-slot></div>
+      <div class="fw-card" style="width:304px"><image-slot id="fw5" shape="rect" fit="cover" placeholder="Product UI" src="assets/featured/hh-light-industrial.jpg"></image-slot></div>
+      <div class="fw-card" style="width:304px"><image-slot id="fw4" shape="rect" fit="cover" placeholder="Campaign" src="assets/featured/leighton-pearls.jpg"></image-slot></div>
+    </div>
+  </div>
+</section>
+
+<!-- EDUCATION -->
+<section class="section section--tight" id="education">
+  <div class="wrap">
+    <div class="section__head reveal"><p class="eyebrow">Education</p></div>
+    <div class="reveal">
+      <div class="edu-row">
+        <div>
+          <div class="edu-row__title">Bachelor of Arts, Geography &amp; Classics</div>
+          <div class="edu-row__sub">Dartmouth College · Minor in Computer Science - Digital Arts</div>
+        </div>
+        <div class="edu-row__years">2017–2021</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SKILLS -->
+<section class="section section--tight" id="skills">
+  <div class="wrap">
+    <div class="section__head reveal" style="margin-bottom: var(--space-md)"><p class="eyebrow">Skills</p></div>
+    <div class="dock-stage reveal">
+      <ul class="dock" id="dock">
+        <li class="dock-item"><a class="dock-link" href="#!" data-name="Google Analytics"><img class="dock-img" src="assets/icons/google-analytics.png" alt="Google Analytics"></a></li>
+        <li class="dock-item"><a class="dock-link" href="#!" data-name="Looker"><img class="dock-img" src="assets/icons/looker.png" alt="Looker"></a></li>
+        <li class="dock-item"><a class="dock-link" href="#!" data-name="Databricks"><img class="dock-img" src="assets/icons/databricks.jpg" alt="Databricks"></a></li>
+        <li class="dock-item"><a class="dock-link" href="#!" data-name="Lightcast"><img class="dock-img" src="assets/icons/lightcast.png" alt="Lightcast"></a></li>
+        <li class="dock-item"><a class="dock-link" href="#!" data-name="Microsoft Excel"><img class="dock-img" src="assets/icons/excel.png" alt="Microsoft Excel"></a></li>
+        <li class="dock-item"><a class="dock-link" href="#!" data-name="Salesforce"><img class="dock-img" src="assets/icons/salesforce.png" alt="Salesforce"></a></li>
+        <li class="dock-item"><a class="dock-link" href="#!" data-name="Klaviyo"><img class="dock-img" src="assets/icons/klaviyo.png" alt="Klaviyo"></a></li>
+        <li class="dock-item"><a class="dock-link" href="#!" data-name="Mailchimp"><img class="dock-img" src="assets/icons/mailchimp.webp" alt="Mailchimp"></a></li>
+        <li class="dock-item"><a class="dock-link" href="#!" data-name="Monday.com"><img class="dock-img" src="assets/icons/monday.png" alt="Monday.com"></a></li>
+        <li class="dock-item"><a class="dock-link" href="#!" data-name="Shopify"><img class="dock-img" src="assets/icons/shopify.png" alt="Shopify"></a></li>
+        <li class="dock-item"><a class="dock-link" href="#!" data-name="Canva"><img class="dock-img" src="assets/icons/canva.png" alt="Canva"></a></li>
+        <li class="dock-item"><a class="dock-link" href="#!" data-name="Figma"><img class="dock-img" src="assets/icons/figma.png" alt="Figma"></a></li>
+        <li class="dock-item"><a class="dock-link" href="#!" data-name="Premiere Pro"><img class="dock-img" src="assets/icons/premiere.png" alt="Adobe Premiere Pro"></a></li>
+        <li class="dock-item"><a class="dock-link" href="#!" data-name="Lightroom"><img class="dock-img" src="assets/icons/lightroom.svg" alt="Adobe Lightroom"></a></li>
+        <li class="dock-item"><a class="dock-link" href="#!" data-name="Claude"><img class="dock-img" src="assets/icons/claude.png" alt="Claude"></a></li>
+        <li class="dock-item"><a class="dock-link" href="#!" data-name="Microsoft Copilot"><img class="dock-img" src="assets/icons/copilot.png" alt="Microsoft Copilot"></a></li>
+        <li class="dock-item"><a class="dock-link" href="#!" data-name="Bolt"><img class="dock-img" src="assets/icons/bolt.png" alt="Bolt"></a></li>
+        <li class="dock-item"><a class="dock-link" href="#!" data-name="Higgsfield"><img class="dock-img" src="assets/icons/higgsfield.png" alt="Higgsfield"></a></li>
+      </ul>
+      <span class="dock-tip" id="dockTip"></span>
+    </div>
+  </div>
+</section>
+
+<!-- CONNECT + FOOTER -->
+<footer class="brand-footer" id="connect">
+  <svg class="footer-wave" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 2278 683" aria-hidden="true">
+    <defs>
+      <linearGradient id="footer-grad" x1="0" y1="0" x2="2278" y2="683" gradientUnits="userSpaceOnUse">
+        <stop offset="0.12" stop-color="#9398B4"></stop>
+        <stop offset="0.88" stop-color="#363E4F"></stop>
+      </linearGradient>
+    </defs>
+    <path id="bouncy-path" fill="url(#footer-grad)" d="M0-0.3C0-0.3,464,156,1139,156S2278-0.3,2278-0.3V683H0V-0.3z"></path>
+  </svg>
+  <div class="brand-footer__inner">
+    <div class="section__head"><p class="eyebrow">Connect</p></div>
+    <div class="connect-grid">
+      <div>
+        <h3>Get in touch</h3>
+        <a class="contact-line" href="mailto:tatumlschultz@gmail.com">
+          <span class="ci"><i data-lucide="mail"></i></span> tatumlschultz@gmail.com
+        </a>
+        <a class="contact-line" href="https://www.linkedin.com/in/tatum-schultz/" target="_blank" rel="noopener">
+          <span class="ci"><i data-lucide="linkedin"></i></span> linkedin.com/in/tatum-schultz
+        </a>
+      </div>
+      <div>
+        <h3>Location</h3>
+        <div class="contact-line" style="cursor:default">
+          <span class="ci"><i data-lucide="map-pin"></i></span> Bartlett, New Hampshire
+        </div>
+        <p class="muted-note" id="localtime">Local time</p>
+      </div>
+    </div>
+    <div class="brand-footer__bar">
+      <span class="brand-footer__name">
+        <span class="brand-footer__mark">Tatum Schultz</span>
+        <a class="brand-footer__ig" href="https://www.instagram.com/tatschultz/" target="_blank" rel="noopener" aria-label="Instagram"><i data-lucide="instagram"></i></a>
+      </span>
+      <span>© 2026</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+  lucide.createIcons();
+  // local time (Eastern)
+  (function(){
+    function tick(){
+      try {
+        const t = new Date().toLocaleTimeString('en-US', { timeZone:'America/New_York', hour:'numeric', minute:'2-digit' });
+        document.getElementById('localtime').textContent = t + ' local time (ET)';
+      } catch(e){}
+    }
+    tick(); setInterval(tick, 30000);
+  })();
+  // reveal on scroll
+  const io = new IntersectionObserver((es)=>{ es.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target);} }); }, { threshold: 0.12 });
+  document.querySelectorAll('.reveal:not(.in)').forEach(el=>io.observe(el));
+</script>
+
+<!-- Footer scroll-bounce (GSAP) -->
+<script src="https://unpkg.com/gsap@3/dist/gsap.min.js"></script>
+<script src="https://unpkg.com/gsap@3/dist/ScrollTrigger.min.js"></script>
+<script src="https://unpkg.com/gsap@3/dist/MorphSVGPlugin.min.js"></script>
+<script>
+  (function(){
+    if (!window.gsap) return;
+    const down   = 'M0-0.3C0-0.3,464,156,1139,156S2278-0.3,2278-0.3V683H0V-0.3z';
+    const center = 'M0-0.3C0-0.3,464,0,1139,0s1139-0.3,1139-0.3V683H0V-0.3z';
+    const hasMorph = !!window.MorphSVGPlugin;
+    gsap.registerPlugin(ScrollTrigger);
+    if (hasMorph) gsap.registerPlugin(MorphSVGPlugin);
+    if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      document.getElementById('bouncy-path').setAttribute('d', center);
+      return;
+    }
+    ScrollTrigger.create({
+      trigger: '.brand-footer',
+      start: 'top bottom',
+      toggleActions: 'play pause resume reverse',
+      onEnter: self => {
+        const variation = self.getVelocity() / 10000;
+        if (hasMorph) {
+          gsap.fromTo('#bouncy-path', { morphSVG: down }, {
+            duration: 2,
+            morphSVG: center,
+            ease: `elastic.out(${1 + variation}, ${1 - variation})`,
+            overwrite: true
+          });
+        } else {
+          gsap.fromTo('#bouncy-path', { attr: { d: down } }, {
+            duration: 1.4, attr: { d: center },
+            ease: `elastic.out(${1 + variation}, ${1 - variation})`, overwrite: true
+          });
+        }
+      }
+    });
+  })();
+</script>
+
+<!-- Skills dock (macOS magnify) -->
+<script>
+  (function(){
+    if (!window.gsap) return;
+    const dock = document.getElementById('dock');
+    if (!dock) return;
+    const items = Array.from(dock.querySelectorAll('.dock-item'));
+    const links = Array.from(dock.querySelectorAll('.dock-link'));
+    const tip = document.getElementById('dockTip');
+    const stage = dock.closest('.dock-stage');
+    const first = items[0];
+    const styles = getComputedStyle(items[0]);
+    const base = parseFloat(styles.width);
+    const margin = parseFloat(styles.marginLeft) + parseFloat(styles.marginRight);
+    const min = base + margin;       // per-icon spacing
+    const max = min * 1.65;          // peak magnified width
+    const bound = min * Math.PI;
+    let hovered = null;
+
+    gsap.set(items, { transformOrigin: '50% 120%' });
+
+    function placeTip(){
+      if (!hovered) return;
+      const sr = stage.getBoundingClientRect();
+      const r = hovered.getBoundingClientRect();
+      tip.style.left = (r.left + r.width / 2 - sr.left) + 'px';
+      tip.style.bottom = (sr.bottom - r.top + 12) + 'px';
+    }
+
+    dock.addEventListener('mousemove', (e) => {
+      const offset = dock.getBoundingClientRect().left + first.offsetLeft;
+      const pointer = e.clientX - offset;
+      for (let i = 0; i < items.length; i++) {
+        const distance = (i * min + min / 2) - pointer;
+        let x = 0, scale = 1;
+        if (-bound < distance && distance < bound) {
+          const rad = distance / min * 0.5;
+          scale = 1 + (max / min - 1) * Math.cos(rad);
+          x = 2 * (max - min) * Math.sin(rad);
+        } else {
+          x = (-bound < distance ? 2 : -2) * (max - min);
+        }
+        gsap.to(items[i], { duration: 0.3, x, scale });
+      }
+      placeTip();
+    });
+
+    dock.addEventListener('mouseleave', () => {
+      gsap.to(items, { duration: 0.3, scale: 1, x: 0 });
+      hovered = null;
+      tip.classList.remove('show');
+    });
+
+    links.forEach((link) => {
+      link.addEventListener('mouseenter', () => {
+        hovered = link;
+        tip.textContent = link.dataset.name;
+        tip.classList.add('show');
+        placeTip();
+      });
+    });
+  })();
+</script>
+
+<!-- Featured work: duplicate track for seamless loop -->
+<script>
+  (function(){
+    const track = document.getElementById('fwTrack');
+    if (!track) return;
+    const clone = track.innerHTML;
+    track.insertAdjacentHTML('beforeend', clone);
+    // mark the duplicated half as decorative
+    const cards = track.querySelectorAll('.fw-card');
+    for (let i = cards.length / 2; i < cards.length; i++) cards[i].setAttribute('aria-hidden', 'true');
+  })();
+</script>
+<script src="transition.js"></script>
+</body>
+</html>
