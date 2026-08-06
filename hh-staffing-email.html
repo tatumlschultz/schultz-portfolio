@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>HH Staffing — Email Marketing — Tatum Schultz</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Poppins:wght@300;400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/colors_and_type.css">
+<link rel="stylesheet" href="css/components.css">
+<link rel="stylesheet" href="css/site.css">
+<script src="https://unpkg.com/lucide@0.456.0/dist/umd/lucide.min.js"></script>
+<style>
+  .co-head { padding: var(--space-xl) 0 var(--space-lg); }
+  .crumb { display:flex; align-items:center; gap:8px; font-family:var(--font-ui); font-size:var(--fs-body-sm); font-weight:300; color:var(--muted); text-decoration:none; margin-bottom: var(--space-xl); width: max-content; }
+  .crumb:hover { color: var(--ink); }
+  .co-head__row { display:flex; align-items:center; gap: var(--space-xl); flex-wrap: wrap; }
+  .co-logo { background: #fff; border:1px solid var(--hairline); border-radius: var(--radius-lg); padding: 22px 30px; display:flex; align-items:center; }
+  .co-logo img { height: 40px; width:auto; }
+  .co-head__meta h1 { font: 400 var(--fs-display-md)/1.05 var(--font-display); color: var(--ink); margin-bottom: 8px; font-style: normal; }
+  .co-head__meta .row { display:flex; flex-wrap:wrap; gap: var(--space-md); align-items:center; font-family:var(--font-ui); font-size:var(--fs-body-sm); font-weight:300; color: var(--muted); }
+  .co-head__meta .dot { width:4px;height:4px;border-radius:50%;background:var(--muted-soft); }
+
+  .rail-wrap { border-top:1px solid var(--hairline); border-bottom:1px solid var(--hairline); margin-top: var(--space-xl); position: sticky; top: 72px; background: color-mix(in srgb, var(--canvas) 92%, transparent); backdrop-filter: blur(8px); z-index: 30; }
+  .rail { display:flex; gap: var(--space-xs); overflow-x:auto; padding: var(--space-sm) 0; scrollbar-width:none; align-items:center; }
+  .rail::-webkit-scrollbar{ display:none; }
+  .rail-group { flex:none; font-family:var(--font-ui); font-size:var(--fs-caption-up); letter-spacing:var(--ls-caption-up); text-transform:uppercase; color:var(--muted-soft); padding:0 4px 0 10px; }
+  .rail-group:first-child { padding-left:0; }
+  .rail-chip { flex:none; display:flex; align-items:center; gap:10px; background:transparent; border:1px solid var(--hairline); border-radius: var(--radius-pill); padding: 10px 18px; cursor:pointer; font-family:var(--font-ui); font-size:var(--fs-nav); font-weight:300; color:var(--muted); transition: all .15s ease; white-space:nowrap; }
+  .rail-chip .idx { font-size: var(--fs-caption); color: var(--muted-soft); }
+  .rail-chip:hover { border-color: var(--ink); color: var(--ink); }
+  .rail-chip.active { background: var(--brand-charcoal); color: var(--on-dark); border-color: var(--brand-charcoal); }
+  .rail-chip.active .idx { color: var(--brand-soft-moon); }
+
+  .panel { display:none; padding: var(--space-section) 0; }
+  .panel.active { display:block; }
+  .panel__grid { display:grid; grid-template-columns: 1fr 430px; gap: clamp(32px,5vw,80px); align-items:start; }
+  @media (max-width: 980px){ .panel__grid{ grid-template-columns: 1fr; } .phone-col{ justify-self:center; } }
+
+  .panel__eyebrow { color: var(--brand-slate-blue); }
+  .panel__title { font: 400 var(--fs-display-md)/1.06 var(--font-display); letter-spacing: var(--ls-display-md); color: var(--ink); margin: var(--space-sm) 0 var(--space-md); font-style:normal; }
+  .panel__goal { font-family: var(--font-display); font-size: 22px; line-height:1.5; font-weight:500; color: var(--body-strong); max-width: 46ch; margin-bottom: var(--space-xl); }
+  .panel__note { font-family:var(--font-ui); font-size:var(--fs-body-sm); font-weight:300; font-style:italic; color:var(--muted); margin-top: var(--space-md); display:flex; gap:8px; align-items:flex-start; }
+  .panel__note i { color: var(--muted-soft); flex:none; margin-top:2px; }
+
+  .spec { border-top:1px solid var(--hairline); }
+  .spec__row { display:grid; grid-template-columns: 150px 1fr; gap: var(--space-lg); padding: var(--space-md) 0; border-bottom:1px solid var(--hairline); align-items:baseline; }
+  .spec__k { font-family:var(--font-ui); font-size:var(--fs-caption-up); letter-spacing:var(--ls-caption-up); text-transform:uppercase; font-weight:300; color:var(--muted); }
+  .spec__v { font-family:var(--font-ui); font-size:var(--fs-body-md); font-weight:300; color:var(--ink); }
+  .spec__v.subject { font-family:var(--font-display); font-style:italic; font-size:21px; color:var(--ink); }
+  @media (max-width:600px){ .spec__row{ grid-template-columns:1fr; gap:4px; } }
+
+  .scrollhint { display:flex; align-items:center; gap:8px; justify-content:center; font-family:var(--font-ui); font-size:var(--fs-caption); font-weight:300; color:var(--muted); margin-top: var(--space-md); }
+
+  /* iPhone */
+  .phone-col { position: sticky; top: 150px; }
+  .phone { width: 392px; max-width: 100%; background: #0c0c0e; border-radius: 58px; padding: 13px; box-shadow: 0 50px 90px -40px rgba(28,24,56,.45), 0 0 0 2px #2a2a2e, inset 0 0 0 2px #000; margin: 0 auto; }
+  .phone__screen { position: relative; border-radius: 46px; overflow: hidden; height: 800px; background: #ffffff; }
+  .phone__scroll { position:absolute; inset:0; overflow-y:auto; -webkit-overflow-scrolling:touch; scrollbar-width:none; }
+  .phone__scroll::-webkit-scrollbar{ display:none; }
+  .statusbar { position: sticky; top:0; z-index:5; height: 54px; display:flex; align-items:flex-end; justify-content:space-between; padding: 0 28px 8px; color:#1a1a1a; font-family: var(--font-ui); font-weight: 400; font-size: 15px; background: linear-gradient(#fff, rgba(255,255,255,.85)); }
+  .statusbar .si { display:flex; align-items:center; gap:6px; }
+  .statusbar .si svg { width:17px; height:17px; }
+  .island { position:absolute; top:11px; left:50%; transform:translateX(-50%); width:118px; height:34px; background:#000; border-radius:20px; z-index:6; }
+  .mailbar { position: sticky; top:0; z-index:4; display:flex; align-items:center; gap:12px; padding: 6px 18px 12px; background:#fff; color:#1a1a1a; border-bottom:1px solid #eef0ec; }
+  .mailbar .av { width:34px;height:34px;border-radius:50%; background:#6cb33f; color:#fff; display:flex;align-items:center;justify-content:center; font-family:var(--font-ui); font-weight:600; font-size:15px; flex:none; }
+  .mailbar .who { font-family:var(--font-ui); font-size:14px; font-weight:400; line-height:1.25; }
+  .mailbar .who small{ display:block; color:#9a9a9a; font-weight:300; font-size:12px; }
+  .mailbar .chev { color:#2f80c4; margin-right:2px; }
+  .eml-flat { width:100%; display:block; }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="nav">
+  <div class="nav__inner">
+    <div class="nav__links">
+      <div class="nav__dd">
+        <button class="nav__link" aria-haspopup="true">Work <i data-lucide="chevron-down" class="chev" style="width:15px;height:15px"></i></button>
+        <div class="nav__dd-menu" role="menu">
+          <a href="email-marketing.html">Email Marketing <i data-lucide="arrow-right" class="arr" style="width:15px;height:15px"></i></a>
+          <a href="social-media.html">Social Media Design <i data-lucide="arrow-right" class="arr" style="width:15px;height:15px"></i></a>
+          <a href="video-editing.html">Video Editing <i data-lucide="arrow-right" class="arr" style="width:15px;height:15px"></i></a>
+          <a href="photography.html">Photography <i data-lucide="arrow-right" class="arr" style="width:15px;height:15px"></i></a>
+        </div>
+      </div>
+      <a class="nav__link" href="index.html#connect">Connect</a>
+    </div>
+    <a class="nav__chip" href="index.html" style="text-decoration:none">← Tatum Schultz</a>
+  </div>
+</nav>
+
+<!-- COMPANY HEADER -->
+<header class="co-head">
+  <div class="wrap">
+    <a class="crumb" href="email-marketing.html"><i data-lucide="arrow-left" style="width:15px;height:15px"></i> Email Marketing</a>
+    <div class="co-head__row">
+      <div class="co-logo"><img src="assets/logos/hh-staffing.png" alt="HH Staffing"></div>
+      <div class="co-head__meta">
+        <h1>HH Staffing</h1>
+        <div class="row">
+          <span>Staffing &amp; recruitment</span><span class="dot"></span>
+          <span>B2C &amp; B2B</span><span class="dot"></span>
+          <span>A company of Array Corp</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- CAMPAIGN RAIL -->
+<div class="rail-wrap">
+  <div class="wrap">
+    <div class="rail" id="rail">
+      <span class="rail-group">Job seeker</span>
+      <button class="rail-chip active" data-panel="p1"><span class="idx">01</span> Post-application</button>
+      <span class="rail-group">Employer</span>
+      <button class="rail-chip" data-panel="p2"><span class="idx">01</span> Industry insights</button>
+      <button class="rail-chip" data-panel="p3"><span class="idx">02</span> Talent of the Week</button>
+    </div>
+  </div>
+</div>
+
+<!-- PANEL 1 — Post-application -->
+<section class="panel active" id="p1">
+  <div class="wrap"><div class="panel__grid">
+    <div>
+      <p class="eyebrow panel__eyebrow">Job seeker — Lifecycle</p>
+      <h2 class="panel__title">Post-application</h2>
+      <p class="panel__goal">Reassure new applicants the moment they apply — show exactly where they stand, what happens next, and how applying to a few more roles gets them placed faster.</p>
+      <div class="spec">
+        <div class="spec__row"><div class="spec__k">Audience</div><div class="spec__v">Job seekers who just submitted an application</div></div>
+        <div class="spec__row"><div class="spec__k">Trigger</div><div class="spec__v">Immediately after applying</div></div>
+        <div class="spec__row"><div class="spec__k">Subject</div><div class="spec__v subject">“Thanks for applying, {{ first_name|default:'there' }} — here's what's next”</div></div>
+        <div class="spec__row"><div class="spec__k">Format</div><div class="spec__v">Responsive HTML · status tracker + matched roles</div></div>
+      </div>
+    </div>
+    <div class="phone-col">
+      <div class="phone"><div class="phone__screen"><div class="island"></div><div class="phone__scroll">
+        <div class="statusbar"><span>9:41</span><span class="si"><i data-lucide="signal"></i><i data-lucide="wifi"></i><i data-lucide="battery-full"></i></span></div>
+        <div class="mailbar"><i data-lucide="chevron-left" class="chev"></i><div class="av">H</div><div class="who">HH Staffing<small>to Tatum · Inbox</small></div></div>
+        <img class="eml-flat" src="assets/emails/hh/application.jpg" alt="Post-application email — Thank You! Here's what happens next.">
+      </div></div></div>
+      <div class="scrollhint"><i data-lucide="mouse-pointer-2" style="width:14px;height:14px"></i> Scroll inside the phone to read the full email</div>
+    </div>
+  </div></div>
+</section>
+
+<!-- PANEL 2 — Industry insights -->
+<section class="panel" id="p2">
+  <div class="wrap"><div class="panel__grid">
+    <div>
+      <p class="eyebrow panel__eyebrow">Employer — Campaign</p>
+      <h2 class="panel__title">Industry insights</h2>
+      <p class="panel__goal">Lead with a timely, data-backed reason for property-management employers to audit their staffing strategy at the start of the year — then offer HH Staffing as the fix.</p>
+      <div class="spec">
+        <div class="spec__row"><div class="spec__k">Audience</div><div class="spec__v">Florida property-management employers &amp; decision-makers</div></div>
+        <div class="spec__row"><div class="spec__k">Send</div><div class="spec__v">Seasonal campaign · January 2026</div></div>
+        <div class="spec__row"><div class="spec__k">Subject</div><div class="spec__v subject">“New Year, New Team: Audit Your Staffing Strategy”</div></div>
+        <div class="spec__row"><div class="spec__k">Format</div><div class="spec__v">Responsive HTML · insight + audit framework</div></div>
+      </div>
+    </div>
+    <div class="phone-col">
+      <div class="phone"><div class="phone__screen"><div class="island"></div><div class="phone__scroll">
+        <div class="statusbar"><span>9:41</span><span class="si"><i data-lucide="signal"></i><i data-lucide="wifi"></i><i data-lucide="battery-full"></i></span></div>
+        <div class="mailbar"><i data-lucide="chevron-left" class="chev"></i><div class="av">H</div><div class="who">HH Staffing<small>to Tatum · Inbox</small></div></div>
+        <img class="eml-flat" src="assets/emails/hh/industry-news.jpg" alt="Industry insights email — New Year, New Team">
+      </div></div></div>
+      <div class="scrollhint"><i data-lucide="mouse-pointer-2" style="width:14px;height:14px"></i> Scroll inside the phone to read the full email</div>
+    </div>
+  </div></div>
+</section>
+
+<!-- PANEL 3 — Talent of the Week -->
+<section class="panel" id="p3">
+  <div class="wrap"><div class="panel__grid">
+    <div>
+      <p class="eyebrow panel__eyebrow">Employer — Weekly</p>
+      <h2 class="panel__title">Talent of the Week</h2>
+      <p class="panel__goal">A weekly drop of pre-vetted, ready-to-work candidates — three spotlight profiles plus the roles HH staffs, sent to employers to spark a quick “send me resumes” reply.</p>
+      <div class="spec">
+        <div class="spec__row"><div class="spec__k">Audience</div><div class="spec__v">Employers &amp; hiring managers on the HH list</div></div>
+        <div class="spec__row"><div class="spec__k">Cadence</div><div class="spec__v">Weekly · refreshed talent each send</div></div>
+        <div class="spec__row"><div class="spec__k">Subject</div><div class="spec__v subject">“Talent of the Week - April 06, 2026”</div></div>
+        <div class="spec__row"><div class="spec__k">Format</div><div class="spec__v">Responsive HTML · dynamic candidate blocks</div></div>
+      </div>
+      <p class="panel__note"><i data-lucide="info" style="width:15px;height:15px"></i> The headshots, names, and details in this template are stock placeholders — not real candidates. Each weekly send is populated with the actual vetted talent on HH's bench.</p>
+    </div>
+    <div class="phone-col">
+      <div class="phone"><div class="phone__screen"><div class="island"></div><div class="phone__scroll">
+        <div class="statusbar"><span>9:41</span><span class="si"><i data-lucide="signal"></i><i data-lucide="wifi"></i><i data-lucide="battery-full"></i></span></div>
+        <div class="mailbar"><i data-lucide="chevron-left" class="chev"></i><div class="av">H</div><div class="who">HH Staffing<small>to Tatum · Inbox</small></div></div>
+        <img class="eml-flat" src="assets/emails/hh/tow.jpg" alt="Talent of the Week email — April 06, 2026 (placeholder candidates)">
+      </div></div></div>
+      <div class="scrollhint"><i data-lucide="mouse-pointer-2" style="width:14px;height:14px"></i> Scroll inside the phone to read the full email</div>
+    </div>
+  </div></div>
+</section>
+
+<footer class="site-foot">
+  <div class="site-foot__inner">
+    <span>© 2026 Tatum Schultz</span>
+    <span>Made in Bartlett, New Hampshire</span>
+  </div>
+</footer>
+
+<script>
+  lucide.createIcons();
+  const chips = document.querySelectorAll('#rail .rail-chip');
+  const panels = document.querySelectorAll('.panel');
+  chips.forEach(chip=>{
+    chip.addEventListener('click', ()=>{
+      chips.forEach(c=>c.classList.remove('active'));
+      panels.forEach(p=>p.classList.remove('active'));
+      chip.classList.add('active');
+      document.getElementById(chip.dataset.panel).classList.add('active');
+      window.scrollTo({ top: document.querySelector('.rail-wrap').offsetTop - 72, behavior:'smooth' });
+    });
+  });
+</script>
+</body>
+</html>

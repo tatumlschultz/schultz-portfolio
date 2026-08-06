@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script>
+  /* No-flash page-transition init: arrive already covered if we came from a card click. */
+  (function(){try{var t=JSON.parse(sessionStorage.getItem('pageTransition')||'null');
+    if(t&&t.incoming&&!(window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches)){
+      var d=document.documentElement;d.classList.add('xt-incoming');
+      d.style.setProperty('--xt-c1',t.c1);d.style.setProperty('--xt-c2',t.c2);}}catch(e){}})();
+</script>
+<title>Video Editing · Tatum Schultz</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Poppins:wght@300;400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/colors_and_type.css">
+<link rel="stylesheet" href="css/components.css">
+<link rel="stylesheet" href="css/site.css">
+<script src="https://unpkg.com/lucide@0.456.0/dist/umd/lucide.min.js"></script>
+<script src="assets/image-slot.js"></script>
+<style>
+  .film { position: relative; border-radius: var(--radius-xl); overflow: hidden; cursor: pointer; background: var(--brand-charcoal); display:block; }
+  .film image-slot { display:block; width:100%; }
+  .film__fallback { position:absolute; inset:0; display:flex; align-items:center; justify-content:center; pointer-events:none; }
+  .film__shade { position:absolute; inset:0; background: linear-gradient(180deg, rgba(20,18,36,0) 40%, rgba(20,18,36,.72) 100%); pointer-events:none; }
+  .film__play {
+    position:absolute; top:50%; left:50%; transform:translate(-50%,-50%);
+    width:74px; height:74px; border-radius:50%;
+    background: rgba(247,245,241,.92); color: var(--brand-charcoal);
+    display:flex; align-items:center; justify-content:center;
+    transition: transform .2s ease, background-color .2s ease; pointer-events:auto; cursor:pointer;
+  }
+  .film:hover .film__play { transform:translate(-50%,-50%) scale(1.08); background:#fff; }
+  .film__cap { position:absolute; left:0; right:0; bottom:0; padding: var(--space-lg) var(--space-xl); pointer-events:none; }
+  .film__title { font: 400 var(--fs-display-sm)/1.08 var(--font-display); color:#fff; letter-spacing:var(--ls-display-sm); }
+  .film__meta { font-family:var(--font-ui); font-size:var(--fs-body-sm); font-weight:300; color: rgba(247,245,241,.78); margin-top:4px; display:flex; align-items:center; gap:10px; }
+  .film__meta .tagline { display:inline-flex; align-items:center; gap:6px; }
+
+  .film--featured { aspect-ratio: 16/8; margin-top: var(--space-xl); }
+  .film--featured .film__title { font-size: var(--fs-display-md); }
+  .film--featured .film__play { width:88px; height:88px; }
+
+  .film-grid { display:grid; grid-template-columns: repeat(3,1fr); gap: var(--space-lg); margin: var(--space-xl) 0 var(--space-section); }
+  @media (max-width: 920px){ .film-grid{ grid-template-columns: repeat(2,1fr);} }
+  @media (max-width: 600px){ .film-grid{ grid-template-columns: 1fr;} }
+  .film--grid { aspect-ratio: 4/5; }
+  .film--grid .film__play { width:60px; height:60px; }
+
+  .subhead { display:flex; align-items:baseline; justify-content:space-between; gap: var(--space-md); margin-top: var(--space-section); }
+  .subhead h2 { font: 400 var(--fs-display-sm)/1.1 var(--font-display); color: var(--ink); }
+  .subhead p { font-family:var(--font-ui); font-size:var(--fs-body-sm); font-weight:300; color: var(--muted); }
+
+  /* modal */
+  .vmodal { position:fixed; inset:0; z-index:120; display:none; align-items:center; justify-content:center; padding: var(--space-xl); background: rgba(18,13,36,.78); backdrop-filter: blur(6px); }
+  .vmodal.open { display:flex; }
+  .vmodal__box { width:min(960px, 100%); }
+  .vmodal__frame { position:relative; aspect-ratio:16/9; background:#0c0a18; border-radius: var(--radius-lg); overflow:hidden; display:flex; flex-direction:column; align-items:center; justify-content:center; color:#cfc9ec; text-align:center; gap:14px; padding:40px; }
+  .vmodal__frame--video { padding:0; background:#000; }
+  .vmodal__frame--video iframe { position:absolute; inset:0; width:100%; height:100%; border:0; }
+  .vmodal__frame .lc { width:64px;height:64px;border-radius:50%; background: rgba(147,152,180,.2); display:flex;align-items:center;justify-content:center; color: var(--brand-slate-blue); }
+  .vmodal__frame h4 { font-family:var(--font-display); font-size:26px; color:#fff; }
+  .vmodal__frame p { font-family:var(--font-ui); font-size:14px; font-weight:300; max-width:42ch; line-height:1.5; }
+  .vmodal__bar { display:flex; align-items:center; justify-content:space-between; margin-top: var(--space-md); color:#efeefb; }
+  .vmodal__bar .t { font-family:var(--font-display); font-size:22px; }
+  .vmodal__bar .m { font-family:var(--font-ui); font-size:13px; font-weight:300; color:#b8b2d6; }
+  .vmodal__close { position:fixed; top:24px; right:28px; width:44px;height:44px;border-radius:50%; background:rgba(247,245,241,.12); color:#fff; border:0; cursor:pointer; display:flex;align-items:center;justify-content:center; }
+  .vmodal__close:hover { background:rgba(247,245,241,.22); }
+</style>
+</head>
+<body>
+
+<!-- PAGE TRANSITION OVERLAY -->
+<div class="xt-overlay" aria-hidden="true">
+  <svg class="xt-svg" viewBox="0 0 100 100" preserveAspectRatio="none">
+    <defs>
+      <linearGradient id="xtGrad" x1="0" y1="0" x2="100" y2="100" gradientUnits="userSpaceOnUse">
+        <stop class="xt-s1" offset="0.15"></stop>
+        <stop class="xt-s2" offset="0.85"></stop>
+      </linearGradient>
+    </defs>
+    <path class="xt-path" fill="url(#xtGrad)" d="M 0 100 V 100 Q 50 100 100 100 V 100 z"></path>
+  </svg>
+  <div class="xt-label">
+    <span class="xt-eyebrow">Selected work</span>
+    <span class="xt-title"></span>
+  </div>
+</div>
+
+<!-- NAV -->
+<nav class="nav">
+  <div class="nav__inner">
+    <div class="nav__links">
+      <div class="nav__dd">
+        <button class="nav__link" aria-haspopup="true">Work <i data-lucide="chevron-down" class="chev" style="width:15px;height:15px"></i></button>
+        <div class="nav__dd-menu" role="menu">
+          <a href="email-marketing.html">Email Marketing <i data-lucide="arrow-right" class="arr" style="width:15px;height:15px"></i></a>
+          <a href="social-media.html">Social Media Design <i data-lucide="arrow-right" class="arr" style="width:15px;height:15px"></i></a>
+          <a href="video-editing.html">Video Editing <i data-lucide="arrow-right" class="arr" style="width:15px;height:15px"></i></a>
+          <a href="photography.html">Photography <i data-lucide="arrow-right" class="arr" style="width:15px;height:15px"></i></a>
+        </div>
+      </div>
+      <a class="nav__link" href="index.html#connect">Connect</a>
+    </div>
+    <a class="nav__chip" href="index.html" style="text-decoration:none">← Tatum Schultz</a>
+  </div>
+</nav>
+
+<!-- HEADER -->
+<header class="page-head">
+  <div class="wrap">
+    <p class="eyebrow">Selected work · 03</p>
+    <h1 class="page-title">Video Editing</h1>
+    <p class="lede body-md">Engagement, wedding, and brand films. Focus on Super 8mm films.</p>
+  </div>
+</header>
+
+<!-- FEATURED -->
+<section class="wrap">
+  <div class="film film--featured" data-title="Amanda &amp; Tyler Wedding" data-meta="Wedding film · Honolulu, HI · May 17, 2025" data-video="1ghe78Wq-Zs">
+    <img class="film__cover" src="https://i.ytimg.com/vi/1ghe78Wq-Zs/maxresdefault.jpg" alt="Amanda &amp; Tyler Wedding film" style="display:block;width:100%;aspect-ratio:16/8;object-fit:cover">
+    <div class="film__shade"></div>
+    <div class="film__play"><i data-lucide="play" style="width:30px;height:30px;margin-left:3px"></i></div>
+    <div class="film__cap">
+      <div class="film__title">Amanda &amp; Tyler Wedding</div>
+      <div class="film__meta"><span class="tagline"><i data-lucide="clapperboard" style="width:15px;height:15px"></i> Wedding film</span> · Honolulu, HI · May 17, 2025</div>
+    </div>
+  </div>
+</section>
+
+<footer class="site-foot">
+  <div class="site-foot__inner">
+    <span>© 2026 Tatum Schultz</span>
+    <span>Made in Bartlett, New Hampshire</span>
+  </div>
+</footer>
+
+<!-- MODAL -->
+<div class="vmodal" id="vmodal">
+  <button class="vmodal__close" id="vclose"><i data-lucide="x"></i></button>
+  <div class="vmodal__box">
+    <div class="vmodal__frame" id="vframe"></div>
+    <div class="vmodal__bar">
+      <span class="t" id="vtitle">Film title</span>
+      <span class="m" id="vmeta">Meta</span>
+    </div>
+  </div>
+</div>
+
+<script>
+  lucide.createIcons();
+  const modal = document.getElementById('vmodal');
+  const vtitle = document.getElementById('vtitle');
+  const vmeta = document.getElementById('vmeta');
+  const vframe = document.getElementById('vframe');
+  const placeholder = '<div class="lc"><i data-lucide="film" style="width:28px;height:28px"></i></div>'
+    + '<h4>Film coming soon</h4>'
+    + '<p>This cut is still in the edit. Check back shortly, or get in touch for a private link.</p>';
+  function openFilm(f){
+    const vid = f.dataset.video;
+    vtitle.textContent = f.dataset.title || 'Film';
+    vmeta.textContent = f.dataset.meta || '';
+    if (vid) {
+      vframe.classList.add('vmodal__frame--video');
+      // Build embed URL. Pass a real origin when we have one (helps YouTube
+      // verify the embedder and avoids "Error 153" on the live site).
+      var realOrigin = (location.protocol === 'http:' || location.protocol === 'https:') ? location.origin : '';
+      var src = 'https://www.youtube.com/embed/' + vid
+        + '?autoplay=1&modestbranding=1&rel=0&playsinline=1&iv_load_policy=3&color=white'
+        + (realOrigin ? '&origin=' + encodeURIComponent(realOrigin) : '');
+      vframe.innerHTML = '<iframe src="' + src + '"'
+        + ' title="' + (f.dataset.title || 'Film') + '" frameborder="0"'
+        + ' referrerpolicy="strict-origin-when-cross-origin"'
+        + ' allow="autoplay; encrypted-media; fullscreen; picture-in-picture" allowfullscreen></iframe>';
+    } else {
+      vframe.classList.remove('vmodal__frame--video');
+      vframe.innerHTML = placeholder;
+      lucide.createIcons();
+    }
+    modal.classList.add('open');
+  }
+  document.querySelectorAll('.film').forEach(f=>{
+    const play = f.querySelector('.film__play');
+    play.addEventListener('click', (e)=>{ e.stopPropagation(); openFilm(f); });
+  });
+  function close(){ modal.classList.remove('open'); vframe.innerHTML=''; vframe.classList.remove('vmodal__frame--video'); }
+  document.getElementById('vclose').addEventListener('click', close);
+  modal.addEventListener('click', (e)=>{ if(e.target===modal) close(); });
+  document.addEventListener('keydown', (e)=>{ if(e.key==='Escape') close(); });
+</script>
+<script src="https://unpkg.com/gsap@3/dist/gsap.min.js"></script>
+<script src="https://unpkg.com/gsap@3/dist/MorphSVGPlugin.min.js"></script>
+<script src="transition.js"></script>
+</body>
+</html>

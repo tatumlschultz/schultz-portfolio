@@ -1,0 +1,469 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>FindATruckerJob · Social Media · Tatum Schultz</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Poppins:wght@300;400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/colors_and_type.css">
+<link rel="stylesheet" href="css/components.css">
+<link rel="stylesheet" href="css/site.css">
+<script src="https://unpkg.com/lucide@0.456.0/dist/umd/lucide.min.js"></script>
+<script src="assets/image-slot.js"></script>
+<style>
+  /* ---------- case study scaffolding ---------- */
+  .cs-head { padding: 56px 0 40px; }
+  .cs-back {
+    display: inline-flex; align-items: center; gap: 8px;
+    font-size: var(--fs-nav); font-weight: 300; color: var(--muted);
+    text-decoration: none; margin-bottom: 28px;
+  }
+  .cs-back:hover { color: var(--ink); }
+  .cs-id { display: flex; align-items: center; gap: 18px; margin-bottom: 22px; }
+  .cs-id__logo {
+    width: 66px; height: 66px; border-radius: var(--radius-md);
+    background: #171522; border: 1px solid #171522;
+    display: grid; place-items: center; flex: none; padding: 0 12px;
+  }
+  .cs-id__logo img { max-width: 100%; max-height: 26px; }
+  .cs-meta-row {
+    display: flex; flex-wrap: wrap; gap: 8px 10px; margin-top: 26px;
+  }
+  .cs-chip {
+    font-family: var(--font-ui); font-weight: 300; font-size: var(--fs-caption);
+    color: var(--body); background: var(--brand-cream);
+    border: 1px solid var(--hairline); border-radius: var(--radius-pill);
+    padding: 7px 15px;
+  }
+
+  /* ---------- facts strip (collapsible) ---------- */
+  .facts-wrap { padding: 4px 0 12px; }
+  .facts { border-top: 1px solid var(--hairline); border-bottom: 1px solid var(--hairline); }
+  .facts__summary {
+    list-style: none; cursor: pointer; user-select: none;
+    display: flex; align-items: center; gap: 10px;
+    padding: 16px 0;
+    font-family: var(--font-ui); font-weight: 300; font-size: var(--fs-caption-up);
+    letter-spacing: var(--ls-caption-up); text-transform: uppercase; color: var(--muted);
+  }
+  .facts__summary::-webkit-details-marker { display: none; }
+  .facts__summary:hover { color: var(--ink); }
+  .facts__chev { width: 15px; height: 15px; transition: transform .25s ease; flex: none; }
+  .facts[open] .facts__chev { transform: rotate(180deg); }
+  .facts__summary .facts__count { margin-left: auto; color: var(--muted-soft); }
+  .facts-strip {
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px 40px;
+    padding: 4px 0 22px;
+  }
+  .fact { display: flex; flex-direction: column; gap: 4px; }
+  .fact dt {
+    font-family: var(--font-ui); font-weight: 300; font-size: 10px;
+    letter-spacing: var(--ls-caption-up); text-transform: uppercase; color: var(--muted);
+  }
+  .fact dd {
+    font-family: var(--font-display); font-size: 16px; line-height: 1.25;
+    letter-spacing: -0.2px; color: var(--ink); margin: 0;
+  }
+  @media (prefers-reduced-motion: no-preference) {
+    .facts[open] .facts-strip { animation: factsReveal .3s ease; }
+  }
+  @keyframes factsReveal { from { opacity: 0; transform: translateY(-6px); } to { opacity: 1; transform: none; } }
+  @media (max-width: 640px) { .facts-strip { grid-template-columns: repeat(2, 1fr); } }
+  @media (max-width: 380px) { .facts-strip { grid-template-columns: 1fr; } }
+
+  /* ---------- feed grid ---------- */
+  .feed-wrap { padding: 12px 0 40px; }
+  .feed-head { display: flex; align-items: flex-end; justify-content: space-between; gap: 24px; margin-bottom: 28px; }
+  .feed-head__note { font-size: var(--fs-body-sm); color: var(--muted); max-width: 360px; }
+  .ig-grid {
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px;
+  }
+  .tile {
+    position: relative; aspect-ratio: 4 / 5; border-radius: var(--radius-sm);
+    overflow: hidden; background: var(--brand-linen); cursor: pointer;
+    border: none; padding: 0; width: 100%; display: block;
+  }
+  .tile image-slot { width: 100%; height: 100%; display: block; }
+  .tile__badge {
+    position: absolute; top: 10px; right: 10px; z-index: 3;
+    width: 28px; height: 28px; border-radius: 50%;
+    background: rgba(20,22,28,.55); color: #fff;
+    display: grid; place-items: center; pointer-events: none;
+    backdrop-filter: blur(2px);
+  }
+  .tile__badge svg { width: 15px; height: 15px; }
+  .tile__multi {
+    position: absolute; bottom: 10px; left: 10px; z-index: 3;
+    font-family: var(--font-ui); font-weight: 300; font-size: 12px; color: #fff;
+    background: rgba(20,22,28,.5); border-radius: var(--radius-pill);
+    padding: 3px 9px; display: flex; align-items: center; gap: 5px; pointer-events: none;
+  }
+  .tile__multi svg { width: 12px; height: 12px; }
+  .tile__over {
+    position: absolute; inset: 0; z-index: 2;
+    background: linear-gradient(180deg, rgba(20,22,28,.05), rgba(20,22,28,.72));
+    opacity: 0; transition: opacity .28s ease;
+    display: flex; flex-direction: column; justify-content: flex-end;
+    padding: 18px; text-align: left;
+  }
+  .tile:hover .tile__over, .tile:focus-visible .tile__over { opacity: 1; }
+  .tile__cap {
+    font-family: var(--font-ui); font-weight: 300; font-size: 13px; line-height: 1.5;
+    color: #fff;
+    display: -webkit-box; -webkit-line-clamp: 4; -webkit-box-orient: vertical; overflow: hidden;
+    transform: translateY(8px); transition: transform .28s ease;
+  }
+  .tile:hover .tile__cap, .tile:focus-visible .tile__cap { transform: none; }
+  .tile__view {
+    font-family: var(--font-ui); font-weight: 300; font-size: 12px; letter-spacing: .3px;
+    color: #fff; display: inline-flex; align-items: center; gap: 6px; margin-top: 12px;
+    opacity: .85;
+  }
+  .tile__view svg { width: 14px; height: 14px; }
+  .tile.is-upcoming::after { display: none; }
+
+  /* ---------- lightbox ---------- */
+  .lb { position: fixed; inset: 0; z-index: 1000; display: none; }
+  .lb.open { display: block; }
+  .lb__scrim { position: absolute; inset: 0; background: rgba(24,26,32,.82); }
+  .lb__panel {
+    position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%);
+    width: min(940px, 92vw); height: min(620px, 88vh);
+    background: var(--brand-cream); border-radius: var(--radius-lg); overflow: hidden;
+    display: grid; grid-template-columns: 1.1fr .9fr;
+  }
+  .lb__stage {
+    position: relative; background: #15171c; display: grid; place-items: center; overflow: hidden;
+  }
+  .lb__img { width: 100%; height: 100%; object-fit: contain; display: block; }
+  .lb__vid { width: 100%; height: 100%; object-fit: contain; display: none; background: #15171c; }
+  .tile-vid { width: 100%; height: 100%; object-fit: cover; display: block; background: var(--brand-linen); }
+  .lb__nav {
+    position: absolute; top: 50%; transform: translateY(-50%);
+    width: 40px; height: 40px; border-radius: 50%; border: none; cursor: pointer;
+    background: rgba(255,255,255,.92); color: var(--ink);
+    display: grid; place-items: center; z-index: 2;
+  }
+  .lb__nav:hover { background: #fff; }
+  .lb__nav.prev { left: 14px; } .lb__nav.next { right: 14px; }
+  .lb__nav svg { width: 18px; height: 18px; }
+  .lb__dots { position: absolute; bottom: 14px; left: 50%; transform: translateX(-50%); display: flex; gap: 6px; z-index: 2; }
+  .lb__dot { width: 6px; height: 6px; border-radius: 50%; background: rgba(255,255,255,.45); }
+  .lb__dot.on { background: #fff; }
+  .lb__side { padding: 30px 30px 26px; display: flex; flex-direction: column; }
+  .lb__brand { display: flex; align-items: center; gap: 11px; padding-bottom: 18px; border-bottom: 1px solid var(--hairline); }
+  .lb__avatar { width: 40px; height: 40px; border-radius: 50%; background: #171522; border: 1px solid #171522; display: grid; place-items: center; flex: none; padding: 0 7px; }
+  .lb__avatar img { max-width: 100%; max-height: 13px; }
+  .lb__handle { font-family: var(--font-ui); font-weight: 400; font-size: 14px; color: var(--ink); }
+  .lb__sub { font-family: var(--font-ui); font-weight: 300; font-size: 12px; color: var(--muted); }
+  .lb__caption {
+    margin-top: 18px; overflow-y: auto; font-size: var(--fs-body-sm); color: var(--body);
+    white-space: pre-wrap; line-height: 1.6; flex: 1;
+  }
+  .lb__caption.empty { color: var(--muted-soft); font-style: italic; }
+  .lb__foot { padding-top: 18px; border-top: 1px solid var(--hairline); display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+  .lb__type { font-family: var(--font-ui); font-weight: 300; font-size: 12px; color: var(--muted); display: inline-flex; align-items: center; gap: 7px; }
+  .lb__type svg { width: 14px; height: 14px; }
+  .lb__ig {
+    font-family: var(--font-ui); font-weight: 300; font-size: 13px; color: var(--ink);
+    text-decoration: none; display: inline-flex; align-items: center; gap: 7px;
+    border: 1px solid var(--ink); border-radius: var(--radius-pill); padding: 8px 15px;
+  }
+  .lb__ig:hover { background: var(--ink); color: var(--brand-cream); }
+  .lb__ig svg { width: 15px; height: 15px; }
+  .lb__close {
+    position: absolute; top: 14px; right: 14px; z-index: 5;
+    width: 36px; height: 36px; border-radius: 50%; border: none; cursor: pointer;
+    background: rgba(255,255,255,.92); color: var(--ink); display: grid; place-items: center;
+  }
+  .lb__close svg { width: 18px; height: 18px; }
+
+  @media (max-width: 860px) {
+    .lb__panel { grid-template-columns: 1fr; height: min(86vh, 760px); }
+    .lb__stage { min-height: 0; }
+  }
+  @media (max-width: 560px) {
+    .ig-grid { gap: 5px; }
+    .feed-head { flex-direction: column; align-items: flex-start; gap: 10px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="nav">
+  <div class="nav__inner">
+    <div class="nav__links">
+      <div class="nav__dd">
+        <button class="nav__link" aria-haspopup="true">Work <i data-lucide="chevron-down" class="chev" style="width:15px;height:15px"></i></button>
+        <div class="nav__dd-menu" role="menu">
+          <a href="email-marketing.html">Email Marketing <i data-lucide="arrow-right" class="arr" style="width:15px;height:15px"></i></a>
+          <a href="social-media.html">Social Media Design <i data-lucide="arrow-right" class="arr" style="width:15px;height:15px"></i></a>
+          <a href="video-editing.html">Video Editing <i data-lucide="arrow-right" class="arr" style="width:15px;height:15px"></i></a>
+          <a href="photography.html">Photography <i data-lucide="arrow-right" class="arr" style="width:15px;height:15px"></i></a>
+        </div>
+      </div>
+      <a class="nav__link" href="index.html#connect">Connect</a>
+    </div>
+    <a class="nav__chip" href="index.html" style="text-decoration:none">← Tatum Schultz</a>
+  </div>
+</nav>
+
+<!-- HEADER -->
+<header class="wrap cs-head">
+  <a class="cs-back" href="social-media.html"><i data-lucide="arrow-left" style="width:15px;height:15px"></i> Social Media Design</a>
+  <div class="cs-id">
+    <div class="cs-id__logo"><img src="assets/logos/findatruckerjob-white.png" alt="FindATruckerJob"></div>
+    <div>
+      <p class="eyebrow">Case study · Trucking recruitment</p>
+      <h1 class="page-title" style="font-size:var(--fs-display-lg)">FindATruckerJob</h1>
+    </div>
+  </div>
+  <p class="lede body-md">A job board built for CDL drivers, where a single tap puts you in front of recruiters. The social work turns that promise into driver stories, employer spotlights, and a plain read on where the market is headed.</p>
+</header>
+
+<!-- FACTS -->
+<section class="wrap facts-wrap">
+  <details class="facts">
+    <summary class="facts__summary">
+      <i data-lucide="chevron-down" class="facts__chev"></i>
+      Project details
+    </summary>
+    <dl class="facts-strip">
+      <div class="fact"><dt>Industry</dt><dd>Trucking</dd></div>
+      <div class="fact"><dt>Audience</dt><dd>CDL truck drivers</dd></div>
+      <div class="fact"><dt>Platforms</dt><dd>Instagram, Facebook</dd></div>
+      <div class="fact"><dt>Formats</dt><dd>Static posts</dd></div>
+      <div class="fact"><dt>My role</dt><dd>Strategy, copywriting, design</dd></div>
+    </dl>
+  </details>
+</section>
+
+<!-- FEED -->
+<section class="wrap feed-wrap">
+  <div class="feed-head">
+    <div>
+      <p class="eyebrow" style="margin-bottom:4px">The feed</p>
+      <h2 class="display-md">Selected posts</h2>
+    </div>
+    <p class="feed-head__note">Hover any post to read its caption. Click to open the full post.</p>
+  </div>
+  <div class="ig-grid" id="grid"></div>
+</section>
+
+<!-- LIGHTBOX -->
+<div class="lb" id="lb" aria-hidden="true">
+  <div class="lb__scrim" data-close></div>
+  <div class="lb__panel" role="dialog" aria-modal="true" aria-label="Instagram post">
+    <button class="lb__close" data-close aria-label="Close"><i data-lucide="x"></i></button>
+    <div class="lb__stage">
+      <img class="lb__img" id="lbImg" alt="">
+      <video class="lb__vid" id="lbVid" controls playsinline loop></video>
+      <button class="lb__nav prev" id="lbPrev" aria-label="Previous"><i data-lucide="chevron-left"></i></button>
+      <button class="lb__nav next" id="lbNext" aria-label="Next"><i data-lucide="chevron-right"></i></button>
+      <div class="lb__dots" id="lbDots"></div>
+    </div>
+    <div class="lb__side">
+      <div class="lb__brand">
+        <div class="lb__avatar"><img src="assets/logos/findatruckerjob-white.png" alt=""></div>
+        <div>
+          <div class="lb__handle">FindATruckerJob</div>
+          <div class="lb__sub">CDL jobs · One-click apply</div>
+        </div>
+      </div>
+      <div class="lb__caption" id="lbCap"></div>
+      <div class="lb__foot">
+        <span class="lb__type" id="lbType"></span>
+        <a class="lb__ig" id="lbIg" href="#" target="_blank" rel="noopener">View on Instagram <i data-lucide="external-link"></i></a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<footer class="site-foot">
+  <div class="site-foot__inner">
+    <span>© 2026 Tatum Schultz</span>
+  </div>
+</footer>
+
+<script>
+/* ---------- post data ---------- */
+const BADGE = { testimonial:'quote', hiring:'briefcase', industry:'trending-up' };
+const TYPE_LABEL = { testimonial:'Driver story', hiring:'Employer spotlight', industry:'Industry insight' };
+
+// Static posts (graphics supplied).
+const POSTS = [
+  { id:'marcus', type:'testimonial',
+    imgs:['assets/fatj-social/marcus.jpg'],
+    cap:"\"One tap and I had three interviews that week. I'm home every Friday now.\" That's Marcus R., CDL A out of Cleveland, OH. He went from a job that kept him out all week to a dedicated route at $82K, hired in 4 days." },
+
+  { id:'gulfeagle', type:'hiring',
+    imgs:['assets/fatj-social/gulfeagle.jpg'],
+    cap:"Now hiring: CDL B Truck Drivers with Gulfeagle Supply in Fargo, ND. Home every night, weekends off, and pay you can count on. Sign-on and safety bonuses, 401k match, full medical/dental/vision, and PTO. Family-owned team that values its drivers." },
+
+  { id:'industry1', type:'industry',
+    imgs:['assets/fatj-social/industry1.jpg'],
+    cap:"What do drivers really want in 2026? Three things:\n\nPay Stability: dependable weekly income, not just a flashy per-mile rate\nHome Time: schedules that actually get you home\nFlexibility: route types built around your life\n\nWe built FindATruckerJob to filter for all three." },
+
+  { id:'rob', type:'testimonial',
+    imgs:['assets/fatj-social/rob.jpg'],
+    cap:"4 days. That's how long it took Robert to go from One-Click Apply to behind the wheel of a better route. The jobs near you are hiring right now. How fast you move is up to you." },
+
+  { id:'meijer', type:'hiring',
+    imgs:['assets/fatj-social/meijer.jpg'],
+    cap:"Now hiring: CDL A Local Truck Drivers with Meijer in Lansing, MI. Home every day, year-round local routes, and a family company that takes care of its team. Weekly pay, schedule flexibility, paid parental leave, education assistance, and a team discount." },
+
+  { id:'industry2', type:'industry',
+    imgs:['assets/fatj-social/industry2.jpg'],
+    cap:"\"Pay still matters, but consistency, communication, and home time are now major deciding factors.\" That's where the 2026 driver market is headed. The good news: you can filter for exactly that. Sort by route, home time, and pay, then One-Click Apply to the jobs that fit your life." },
+];
+
+/* ---------- build grid ---------- */
+const grid = document.getElementById('grid');
+POSTS.forEach((p, idx) => {
+  const tile = document.createElement('button');
+  tile.className = 'tile';
+  tile.dataset.idx = idx;
+
+  // cover: video, real image, else a drop slot for the user's screenshot
+  if (p.vid) {
+    const v = document.createElement('video');
+    v.className = 'tile-vid';
+    v.src = p.vid + '#t=0.1';
+    v.muted = true; v.playsInline = true; v.preload = 'metadata';
+    tile.appendChild(v);
+  } else if (p.imgs) {
+    const slot = document.createElement('image-slot');
+    slot.setAttribute('id', 'll-' + p.id);
+    slot.setAttribute('shape', 'rect');
+    slot.setAttribute('fit', 'cover');
+    slot.setAttribute('src', p.imgs[0]);
+    slot.setAttribute('placeholder', '');
+    tile.appendChild(slot);
+  } else {
+    const slot = document.createElement('image-slot');
+    slot.setAttribute('id', 'll-' + p.id);
+    slot.setAttribute('shape', 'rect');
+    slot.setAttribute('fit', 'cover');
+    slot.setAttribute('placeholder', 'Drop post image');
+    tile.appendChild(slot);
+  }
+
+  // type badge
+  const badge = BADGE[p.type];
+  if (badge) {
+    const b = document.createElement('span');
+    b.className = 'tile__badge';
+    b.innerHTML = '<i data-lucide="' + badge + '"></i>';
+    tile.appendChild(b);
+  }
+  // multi-image counter
+  if (p.imgs && p.imgs.length > 1) {
+    const m = document.createElement('span');
+    m.className = 'tile__multi';
+    m.innerHTML = '<i data-lucide="images"></i>' + p.imgs.length;
+    tile.appendChild(m);
+  }
+
+  // hover overlay
+  const over = document.createElement('div');
+  over.className = 'tile__over';
+  if (p.cap) {
+    over.innerHTML = '<div class="tile__cap">' + p.cap.replace(/\n+/g,' ') + '</div>';
+  } else {
+    over.innerHTML = '<span class="tile__view">Open post <i data-lucide="arrow-up-right"></i></span>';
+  }
+  tile.appendChild(over);
+
+  tile.addEventListener('click', (e) => {
+    // don't hijack clicks meant for filling an empty slot
+    if (e.target.closest('image-slot') && !slotFilled(p)) return;
+    openLightbox(idx);
+  });
+
+  grid.appendChild(tile);
+});
+
+function slotFilled(p) {
+  return !!p.imgs; // real carousels are always "filled"
+}
+
+/* ---------- lightbox ---------- */
+const lb = document.getElementById('lb');
+const lbImg = document.getElementById('lbImg');
+const lbCap = document.getElementById('lbCap');
+const lbType = document.getElementById('lbType');
+const lbIg = document.getElementById('lbIg');
+const lbDots = document.getElementById('lbDots');
+const lbPrev = document.getElementById('lbPrev');
+const lbNext = document.getElementById('lbNext');
+const lbVid = document.getElementById('lbVid');
+let cur = null, frame = 0;
+
+function imagesFor(p) {
+  if (p.imgs) return p.imgs;
+  // dropped screenshot for a link tile, if present
+  const slot = document.getElementById('ll-' + p.id);
+  const src = slot && (slot.currentSrc || slot.getAttribute('data-src') || slot.getAttribute('src'));
+  return src ? [src] : [];
+}
+
+function openLightbox(idx) {
+  cur = POSTS[idx]; frame = 0;
+  const label = TYPE_LABEL[cur.type] || 'Post';
+  lbType.innerHTML = '<i data-lucide="' + (BADGE[cur.type]||'square') + '"></i>' + label;
+  if (cur.cap) { lbCap.textContent = cur.cap; lbCap.classList.remove('empty'); }
+  else { lbCap.textContent = 'Caption to be added: paste it in and I’ll drop it here.'; lbCap.classList.add('empty'); }
+  if (cur.href) { lbIg.href = cur.href; lbIg.style.display = ''; }
+  else { lbIg.style.display = 'none'; }
+  renderFrame();
+  lb.classList.add('open'); lb.setAttribute('aria-hidden','false');
+  if (window.lucide) lucide.createIcons();
+}
+function renderFrame() {
+  // video post
+  if (cur.vid) {
+    lbImg.style.display = 'none'; lbImg.removeAttribute('src');
+    lbPrev.style.display = lbNext.style.display = 'none';
+    lbDots.innerHTML = '';
+    lbVid.src = cur.vid; lbVid.style.display = '';
+    lbVid.muted = true; lbVid.play().catch(()=>{});
+    return;
+  }
+  lbVid.pause(); lbVid.removeAttribute('src'); lbVid.style.display = 'none';
+  const imgs = imagesFor(cur);
+  const multi = imgs.length > 1;
+  lbPrev.style.display = lbNext.style.display = multi ? '' : 'none';
+  lbDots.innerHTML = '';
+  if (imgs.length) {
+    lbImg.src = imgs[frame]; lbImg.style.display = '';
+    if (multi) imgs.forEach((_, i) => {
+      const d = document.createElement('span');
+      d.className = 'lb__dot' + (i === frame ? ' on' : '');
+      lbDots.appendChild(d);
+    });
+  } else {
+    lbImg.removeAttribute('src'); lbImg.style.display = 'none';
+  }
+}
+function step(n) {
+  const imgs = imagesFor(cur); if (imgs.length < 2) return;
+  frame = (frame + n + imgs.length) % imgs.length; renderFrame();
+}
+lbPrev.addEventListener('click', () => step(-1));
+lbNext.addEventListener('click', () => step(1));
+document.querySelectorAll('#lb [data-close]').forEach(el => el.addEventListener('click', closeLb));
+function closeLb() { lb.classList.remove('open'); lb.setAttribute('aria-hidden','true'); lbVid.pause(); }
+document.addEventListener('keydown', (e) => {
+  if (!lb.classList.contains('open')) return;
+  if (e.key === 'Escape') closeLb();
+  if (e.key === 'ArrowLeft') step(-1);
+  if (e.key === 'ArrowRight') step(1);
+});
+
+lucide.createIcons();
+</script>
+</body>
+</html>

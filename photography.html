@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script>
+  /* No-flash page-transition init: arrive already covered if we came from a card click. */
+  (function(){try{var t=JSON.parse(sessionStorage.getItem('pageTransition')||'null');
+    if(t&&t.incoming&&!(window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches)){
+      var d=document.documentElement;d.classList.add('xt-incoming');
+      d.style.setProperty('--xt-c1',t.c1);d.style.setProperty('--xt-c2',t.c2);}}catch(e){}})();
+</script>
+<title>Photography · Tatum Schultz</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Poppins:wght@300;400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/colors_and_type.css">
+<link rel="stylesheet" href="css/components.css">
+<link rel="stylesheet" href="css/site.css">
+<script src="https://unpkg.com/lucide@0.456.0/dist/umd/lucide.min.js"></script>
+<style>
+  .gal-grid {
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--space-xl);
+    margin: var(--space-xl) 0 var(--space-section);
+  }
+  @media (max-width: 900px){ .gal-grid { grid-template-columns: 1fr; max-width: 460px; } }
+
+  .gal {
+    position: relative; display: block; border-radius: var(--radius-xl); overflow: hidden;
+    background: var(--surface-card); text-decoration: none; aspect-ratio: 3/4;
+    box-shadow: 0 1px 0 rgba(54,62,79,0); transition: transform .35s ease, box-shadow .35s ease;
+  }
+  .gal:hover { transform: translateY(-4px); box-shadow: 0 18px 40px rgba(54,62,79,.16); }
+  .gal__img { position:absolute; inset:0; width:100%; height:100%; object-fit:cover; display:block;
+    transition: transform .6s cubic-bezier(.2,.7,.2,1); }
+  .gal:hover .gal__img { transform: scale(1.04); }
+  .gal__shade { position:absolute; inset:0; pointer-events:none;
+    background: linear-gradient(180deg, rgba(20,18,36,0) 38%, rgba(20,18,36,.28) 66%, rgba(20,18,36,.74) 100%); }
+  .gal__cap { position:absolute; left:0; right:0; bottom:0; padding: var(--space-lg) var(--space-xl); }
+  .gal__no { font-family:var(--font-ui); font-weight:300; font-size:var(--fs-caption-up);
+    letter-spacing:1.5px; text-transform:uppercase; color: rgba(247,245,241,.72); }
+  .gal__name { font: 400 var(--fs-display-sm)/1.05 var(--font-display); letter-spacing:var(--ls-display-sm);
+    color:#fff; margin-top:6px; }
+  .gal__go { display:inline-flex; align-items:center; gap:8px; margin-top: var(--space-md);
+    font-family:var(--font-ui); font-weight:300; font-size:var(--fs-body-sm); color:#fff; }
+  .gal__go i { width:16px; height:16px; transition: transform .25s ease; }
+  .gal:hover .gal__go i { transform: translate(2px,-2px); }
+
+  .gal-note { font-family:var(--font-ui); font-weight:300; font-size:var(--fs-body-sm); color: var(--muted);
+    margin-top: calc(var(--space-section) * -1 + var(--space-md)); margin-bottom: var(--space-section);
+    display:flex; align-items:center; gap:8px; }
+  .gal-note i { width:15px; height:15px; }
+</style>
+</head>
+<body>
+
+<!-- PAGE TRANSITION OVERLAY -->
+<div class="xt-overlay" aria-hidden="true">
+  <svg class="xt-svg" viewBox="0 0 100 100" preserveAspectRatio="none">
+    <defs>
+      <linearGradient id="xtGrad" x1="0" y1="0" x2="100" y2="100" gradientUnits="userSpaceOnUse">
+        <stop class="xt-s1" offset="0.15"></stop>
+        <stop class="xt-s2" offset="0.85"></stop>
+      </linearGradient>
+    </defs>
+    <path class="xt-path" fill="url(#xtGrad)" d="M 0 100 V 100 Q 50 100 100 100 V 100 z"></path>
+  </svg>
+  <div class="xt-label">
+    <span class="xt-eyebrow">Selected work</span>
+    <span class="xt-title"></span>
+  </div>
+</div>
+
+<!-- NAV -->
+<nav class="nav">
+  <div class="nav__inner">
+    <div class="nav__links">
+      <div class="nav__dd">
+        <button class="nav__link" aria-haspopup="true">Work <i data-lucide="chevron-down" class="chev" style="width:15px;height:15px"></i></button>
+        <div class="nav__dd-menu" role="menu">
+          <a href="email-marketing.html">Email Marketing <i data-lucide="arrow-right" class="arr" style="width:15px;height:15px"></i></a>
+          <a href="social-media.html">Social Media Design <i data-lucide="arrow-right" class="arr" style="width:15px;height:15px"></i></a>
+          <a href="video-editing.html">Video Editing <i data-lucide="arrow-right" class="arr" style="width:15px;height:15px"></i></a>
+          <a href="photography.html">Photography <i data-lucide="arrow-right" class="arr" style="width:15px;height:15px"></i></a>
+        </div>
+      </div>
+      <a class="nav__link" href="index.html#connect">Connect</a>
+    </div>
+    <a class="nav__chip" href="index.html" style="text-decoration:none">← Tatum Schultz</a>
+  </div>
+</nav>
+
+<!-- HEADER -->
+<header class="page-head">
+  <div class="wrap">
+    <p class="eyebrow">Selected work · 04</p>
+    <h1 class="page-title">Photography</h1>
+    <p class="lede body-md">Portraits, couples, and brand work. Choose a gallery to see the full collection.</p>
+  </div>
+</header>
+
+<!-- GALLERIES -->
+<section class="wrap">
+  <div class="gal-grid">
+    <a class="gal" href="https://tatumschultzphotography.mypixieset.com/portraits/" target="_blank" rel="noopener">
+      <img class="gal__img" src="https://images-pw.pixieset.com/elementfield/334659391/18E68CE8-3AD1-4781-9555-2DA2597FFC46-520fb697.JPG" alt="Portraits gallery cover" loading="lazy">
+      <div class="gal__shade"></div>
+      <div class="gal__cap">
+        <div class="gal__name">Portraits</div>
+        <span class="gal__go">View gallery <i data-lucide="arrow-up-right"></i></span>
+      </div>
+    </a>
+
+    <a class="gal" href="https://tatumschultzphotography.mypixieset.com/couples/" target="_blank" rel="noopener">
+      <img class="gal__img" src="https://images-pw.pixieset.com/elementfield/199657613/80ee0181b784e16e368a6a8441975746-42edce40.jpg" alt="Couples and engagement gallery cover" loading="lazy">
+      <div class="gal__shade"></div>
+      <div class="gal__cap">
+        <div class="gal__name">Couples + Engagement</div>
+        <span class="gal__go">View gallery <i data-lucide="arrow-up-right"></i></span>
+      </div>
+    </a>
+
+    <a class="gal" href="https://tatumschultzphotography.mypixieset.com/Brand/" target="_blank" rel="noopener">
+      <img class="gal__img" src="https://images-pw.pixieset.com/elementfield/044659391/IMG_2111-a3623d4a.jpg" alt="Brand gallery cover" loading="lazy">
+      <div class="gal__shade"></div>
+      <div class="gal__cap">
+        <div class="gal__name">Brand</div>
+        <span class="gal__go">View gallery <i data-lucide="arrow-up-right"></i></span>
+      </div>
+    </a>
+  </div>
+  <p class="gal-note"><i data-lucide="external-link"></i> Galleries open in a new tab on tatumschultzphotography.com</p>
+</section>
+
+<footer class="site-foot">
+  <div class="site-foot__inner">
+    <span>© 2026 Tatum Schultz</span>
+    <span>Made in Bartlett, New Hampshire</span>
+  </div>
+</footer>
+
+<script>
+  lucide.createIcons();
+</script>
+<script src="https://unpkg.com/gsap@3/dist/gsap.min.js"></script>
+<script src="https://unpkg.com/gsap@3/dist/MorphSVGPlugin.min.js"></script>
+<script src="transition.js"></script>
+</body>
+</html>

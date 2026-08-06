@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script>
+  /* No-flash page-transition init: arrive already covered if we came from a card click. */
+  (function(){try{var t=JSON.parse(sessionStorage.getItem('pageTransition')||'null');
+    if(t&&t.incoming&&!(window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches)){
+      var d=document.documentElement;d.classList.add('xt-incoming');
+      d.style.setProperty('--xt-c1',t.c1);d.style.setProperty('--xt-c2',t.c2);}}catch(e){}})();
+</script>
+<title>Email Marketing · Tatum Schultz</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Poppins:wght@300;400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/colors_and_type.css">
+<link rel="stylesheet" href="css/components.css">
+<link rel="stylesheet" href="css/site.css">
+<script src="https://unpkg.com/lucide@0.456.0/dist/umd/lucide.min.js"></script>
+<style>
+  .work-card__logo.is-dark { background: var(--brand-charcoal); border-bottom-color: transparent; }
+  .work-card__logo.is-dark img { max-height: 30px; }
+  .soon { color: var(--muted-soft); font-style: italic; }
+</style>
+</head>
+<body>
+
+<!-- PAGE TRANSITION OVERLAY -->
+<div class="xt-overlay" aria-hidden="true">
+  <svg class="xt-svg" viewBox="0 0 100 100" preserveAspectRatio="none">
+    <defs>
+      <linearGradient id="xtGrad" x1="0" y1="0" x2="100" y2="100" gradientUnits="userSpaceOnUse">
+        <stop class="xt-s1" offset="0.15"></stop>
+        <stop class="xt-s2" offset="0.85"></stop>
+      </linearGradient>
+    </defs>
+    <path class="xt-path" fill="url(#xtGrad)" d="M 0 100 V 100 Q 50 100 100 100 V 100 z"></path>
+  </svg>
+  <div class="xt-label">
+    <span class="xt-eyebrow">Selected work</span>
+    <span class="xt-title"></span>
+  </div>
+</div>
+
+<!-- NAV -->
+<nav class="nav">
+  <div class="nav__inner">
+    <div class="nav__links">
+      <div class="nav__dd">
+        <button class="nav__link" aria-haspopup="true">Work <i data-lucide="chevron-down" class="chev" style="width:15px;height:15px"></i></button>
+        <div class="nav__dd-menu" role="menu">
+          <a href="email-marketing.html">Email Marketing <i data-lucide="arrow-right" class="arr" style="width:15px;height:15px"></i></a>
+          <a href="social-media.html">Social Media Design <i data-lucide="arrow-right" class="arr" style="width:15px;height:15px"></i></a>
+          <a href="video-editing.html">Video Editing <i data-lucide="arrow-right" class="arr" style="width:15px;height:15px"></i></a>
+          <a href="photography.html">Photography <i data-lucide="arrow-right" class="arr" style="width:15px;height:15px"></i></a>
+        </div>
+      </div>
+      <a class="nav__link" href="index.html#connect">Connect</a>
+    </div>
+    <a class="nav__chip" href="index.html" style="text-decoration:none">← Tatum Schultz</a>
+  </div>
+</nav>
+
+<!-- HEADER -->
+<header class="page-head">
+  <div class="wrap">
+    <p class="eyebrow">Selected work · 01</p>
+    <h1 class="page-title">Email Marketing</h1>
+    <p class="lede body-md">Lifecycle, nurture, and re-engagement campaigns built from the data up, segmentation, subject lines, and design that earns the open and the click. Filter by audience, then open a company to walk its campaigns.</p>
+    <div class="filters" id="filters">
+      <button class="filter-tab active" data-filter="all">All</button>
+      <button class="filter-tab" data-filter="ecommerce">Ecommerce</button>
+      <button class="filter-tab" data-filter="b2c">B2C</button>
+      <button class="filter-tab" data-filter="b2b">B2B</button>
+    </div>
+  </div>
+</header>
+
+<!-- CARDS -->
+<section class="wrap">
+  <div class="card-grid" id="grid">
+
+    <!-- FindATruckerJob -->
+    <a class="work-card" href="findatruckerjob.html" data-aud="b2c">
+      <div class="work-card__logo is-dark">
+        <img src="assets/logos/findatruckerjob-white.png" alt="FindATruckerJob">
+      </div>
+      <div class="work-card__body">
+        <div class="work-card__name">FindATruckerJob</div>
+        <div class="work-card__meta">
+          <span class="tag">B2C</span>
+          <span class="tag">A company of Array Corp</span>
+        </div>
+        <p class="body-sm" style="color:var(--muted)">Driver acquisition &amp; re-engagement email, application nurture, job alerts, and lifecycle flows for CDL drivers.</p>
+        <div class="work-card__foot">
+          <span>2 campaigns</span>
+          <span>View case study <i data-lucide="arrow-right" class="arr" style="width:16px;height:16px;vertical-align:-3px"></i></span>
+        </div>
+      </div>
+    </a>
+
+    <!-- Leighton Lam -->
+    <a class="work-card" href="leighton-lam-email.html" data-aud="ecommerce" style="text-decoration:none">
+      <div class="work-card__logo">
+        <img src="assets/logos/leighton-lam.png" alt="Leighton Lam Designs">
+      </div>
+      <div class="work-card__body">
+        <div class="work-card__name">Leighton Lam Designs</div>
+        <div class="work-card__meta">
+          <span class="tag">Ecommerce</span>
+          <span class="tag">Made in Hawai‘i</span>
+        </div>
+        <p class="body-sm" style="color:var(--muted)">Welcome flow and abandoned-cart recovery for a heritage Hawaiian jewelry brand.</p>
+        <div class="work-card__foot">
+          <span>2 flows</span>
+          <span>View case study <i data-lucide="arrow-right" class="arr" style="width:16px;height:16px;vertical-align:-3px"></i></span>
+        </div>
+      </div>
+    </a>
+
+    <!-- HH Staffing -->
+    <a class="work-card" href="hh-staffing-email.html" data-aud="b2c b2b" style="text-decoration:none">
+      <div class="work-card__logo">
+        <img src="assets/logos/hh-staffing.png" alt="HH Staffing">
+      </div>
+      <div class="work-card__body">
+        <div class="work-card__name">HH Staffing</div>
+        <div class="work-card__meta">
+          <span class="tag">B2C</span>
+          <span class="tag">B2B</span>
+          <span class="tag">A company of Array Corp</span>
+        </div>
+        <p class="body-sm" style="color:var(--muted)">Applicant lifecycle, employer demand-gen, and a weekly talent drop — two audiences, one program.</p>
+        <div class="work-card__foot">
+          <span>3 campaigns</span>
+          <span>View case study <i data-lucide="arrow-right" class="arr" style="width:16px;height:16px;vertical-align:-3px"></i></span>
+        </div>
+      </div>
+    </a>
+
+
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="site-foot">
+  <div class="site-foot__inner">
+    <span>© 2026 Tatum Schultz</span>
+    <span>Made in Bartlett, New Hampshire</span>
+  </div>
+</footer>
+
+<script>
+  lucide.createIcons();
+  // filtering
+  const tabs = document.querySelectorAll('#filters .filter-tab');
+  const cards = document.querySelectorAll('#grid .work-card');
+  tabs.forEach(tab=>{
+    tab.addEventListener('click', ()=>{
+      tabs.forEach(t=>t.classList.remove('active'));
+      tab.classList.add('active');
+      const f = tab.dataset.filter;
+      cards.forEach(c=>{
+        const auds = (c.dataset.aud||'').split(' ');
+        c.classList.toggle('is-hidden', !(f==='all' || auds.includes(f)));
+      });
+    });
+  });
+</script>
+<script src="https://unpkg.com/gsap@3/dist/gsap.min.js"></script>
+<script src="https://unpkg.com/gsap@3/dist/MorphSVGPlugin.min.js"></script>
+<script src="transition.js"></script>
+</body>
+</html>

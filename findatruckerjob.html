@@ -1,0 +1,478 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>FindATruckerJob — Email Marketing — Tatum Schultz</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/colors_and_type.css">
+<link rel="stylesheet" href="css/components.css">
+<link rel="stylesheet" href="css/site.css">
+<script src="https://unpkg.com/lucide@0.456.0/dist/umd/lucide.min.js"></script>
+<style>
+  /* ---------- company header ---------- */
+  .co-head { padding: var(--space-xl) 0 var(--space-lg); }
+  .crumb { display:flex; align-items:center; gap:8px; font-family:var(--font-ui); font-size:var(--fs-body-sm); font-weight:300; color:var(--muted); text-decoration:none; margin-bottom: var(--space-xl); width: max-content; }
+  .crumb:hover { color: var(--ink); }
+  .co-head__row { display:flex; align-items:center; gap: var(--space-xl); flex-wrap: wrap; }
+  .co-logo { background: var(--brand-charcoal); border-radius: var(--radius-lg); padding: 22px 30px; display:flex; align-items:center; }
+  .co-logo img { height: 30px; width:auto; }
+  .co-head__meta h1 { font: 400 var(--fs-display-md)/1.05 var(--font-display); color: var(--ink); margin-bottom: 8px; font-style: normal; }
+  .co-head__meta .row { display:flex; flex-wrap:wrap; gap: var(--space-md); align-items:center; font-family:var(--font-ui); font-size:var(--fs-body-sm); font-weight:300; color: var(--muted); }
+  .co-head__meta .dot { width:4px;height:4px;border-radius:50%;background:var(--muted-soft); }
+
+  /* ---------- campaign rail ---------- */
+  .rail-wrap { border-top:1px solid var(--hairline); border-bottom:1px solid var(--hairline); margin-top: var(--space-xl); position: sticky; top: 72px; background: color-mix(in srgb, var(--canvas) 92%, transparent); backdrop-filter: blur(8px); z-index: 30; }
+  .rail { display:flex; gap: var(--space-xs); overflow-x:auto; padding: var(--space-sm) 0; scrollbar-width:none; }
+  .rail::-webkit-scrollbar{ display:none; }
+  .rail-chip {
+    flex:none; display:flex; align-items:center; gap:10px;
+    background:transparent; border:1px solid var(--hairline); border-radius: var(--radius-pill);
+    padding: 10px 18px; cursor:pointer; font-family:var(--font-ui); font-size:var(--fs-nav); font-weight:300; color:var(--muted);
+    transition: all .15s ease; white-space:nowrap;
+  }
+  .rail-chip .idx { font-size: var(--fs-caption); color: var(--muted-soft); }
+  .rail-chip:hover { border-color: var(--ink); color: var(--ink); }
+  .rail-chip.active { background: var(--brand-charcoal); color: var(--on-dark); border-color: var(--brand-charcoal); }
+  .rail-chip.active .idx { color: var(--brand-slate-blue); }
+
+  /* ---------- campaign panel ---------- */
+  .panel { display:none; padding: var(--space-section) 0; }
+  .panel.active { display:block; }
+  .panel__grid { display:grid; grid-template-columns: 1fr 430px; gap: clamp(32px,5vw,80px); align-items:start; }
+  @media (max-width: 980px){ .panel__grid{ grid-template-columns: 1fr; } .phone-col{ justify-self:center; } }
+
+  .panel__eyebrow { color: var(--brand-slate-blue); }
+  .panel__title { font: 400 var(--fs-display-md)/1.06 var(--font-display); letter-spacing: var(--ls-display-md); color: var(--ink); margin: var(--space-sm) 0 var(--space-md); font-style:normal; }
+  .panel__goal { font-family: var(--font-display); font-size: 22px; line-height:1.5; font-weight:500; color: var(--body-strong); max-width: 46ch; margin-bottom: var(--space-xl); }
+
+  .spec { border-top:1px solid var(--hairline); }
+  .spec__row { display:grid; grid-template-columns: 150px 1fr; gap: var(--space-lg); padding: var(--space-md) 0; border-bottom:1px solid var(--hairline); align-items:baseline; }
+  .spec__k { font-family:var(--font-ui); font-size:var(--fs-caption-up); letter-spacing:var(--ls-caption-up); text-transform:uppercase; font-weight:300; color:var(--muted); }
+  .spec__v { font-family:var(--font-ui); font-size:var(--fs-body-md); font-weight:300; color:var(--ink); }
+  .spec__v.subject { font-family:var(--font-display); font-style:italic; font-size:21px; color:var(--ink); }
+  @media (max-width:600px){ .spec__row{ grid-template-columns:1fr; gap:4px; } }
+
+  /* results */
+  .results { margin-top: var(--space-xl); }
+  .results__grid { display:grid; grid-template-columns: repeat(3,1fr); gap: var(--space-md); margin-top: var(--space-md); }
+  @media (max-width:600px){ .results__grid{ grid-template-columns:1fr; } }
+  .stat { border-radius: var(--radius-lg); padding: var(--space-lg); }
+  .stat:nth-child(1){ background: var(--brand-slate-blue); color: var(--brand-soft-moon); }
+  .stat:nth-child(2){ background: var(--brand-charcoal); color: var(--on-dark); }
+  .stat:nth-child(3){ background: var(--brand-soft-moon); color: var(--ink); }
+  .stat__n { font: 400 var(--fs-display-md)/1 var(--font-display); margin-bottom: 8px; }
+  .stat__l { font-family:var(--font-ui); font-size:var(--fs-body-sm); font-weight:300; line-height:1.4; opacity:.92; }
+
+  .scrollhint { display:flex; align-items:center; gap:8px; justify-content:center; font-family:var(--font-ui); font-size:var(--fs-caption); font-weight:300; color:var(--muted); margin-top: var(--space-md); }
+
+  /* ============================================================
+     iPHONE
+     ============================================================ */
+  .phone-col { position: sticky; top: 150px; }
+  .phone {
+    width: 392px; max-width: 100%;
+    background: #0c0c0e;
+    border-radius: 58px;
+    padding: 13px;
+    box-shadow: 0 50px 90px -40px rgba(28,24,56,.6), 0 0 0 2px #2a2a2e, inset 0 0 0 2px #000;
+    margin: 0 auto;
+  }
+  .phone__screen {
+    position: relative;
+    border-radius: 46px;
+    overflow: hidden;
+    height: 800px;
+    background: #171522;
+  }
+  .phone__scroll { position:absolute; inset:0; overflow-y:auto; -webkit-overflow-scrolling:touch; scrollbar-width:none; }
+  .phone__scroll::-webkit-scrollbar{ display:none; }
+  /* status bar */
+  .statusbar {
+    position: sticky; top:0; z-index:5;
+    height: 54px; display:flex; align-items:flex-end; justify-content:space-between;
+    padding: 0 28px 8px; color:#fff;
+    font-family: var(--font-ui); font-weight: 400; font-size: 15px;
+    background: linear-gradient(#1b1928, rgba(27,25,40,0));
+  }
+  .statusbar .si { display:flex; align-items:center; gap:6px; }
+  .statusbar .si svg { width:17px; height:17px; }
+  .island { position:absolute; top:11px; left:50%; transform:translateX(-50%); width:118px; height:34px; background:#000; border-radius:20px; z-index:6; }
+  /* mail app bar */
+  .mailbar {
+    position: sticky; top:0; z-index:4;
+    display:flex; align-items:center; gap:12px; padding: 6px 18px 12px;
+    background:#1b1928; color:#fff;
+  }
+  .mailbar .av { width:34px;height:34px;border-radius:50%; background:#F4C84B; color:#1b1330; display:flex;align-items:center;justify-content:center; font-family:var(--font-ui); font-weight:600; font-size:15px; flex:none; }
+  .mailbar .who { font-family:var(--font-ui); font-size:14px; font-weight:400; line-height:1.25; }
+  .mailbar .who small{ display:block; color:#b8b2d6; font-weight:300; font-size:12px; }
+  .mailbar .chev { color:#F4C84B; margin-right:2px; }
+
+  /* ---------- THE EMAIL (FindATruckerJob brand) ---------- */
+  .eml-flat { width: 100%; display: block; }
+  .eml { background: #171522; color: #cfccdb; font-family: var(--font-ui); font-weight: 300; }
+  .eml * { box-sizing:border-box; }
+  .eml b { font-weight:600; color:#fff; }
+
+  /* header block */
+  .eml-head { background:linear-gradient(180deg,#201d2e 0%, #171522 100%); padding:24px 26px 32px; text-align:center; }
+  .eml-head__logo { height:20px; width:auto; display:inline-block; margin-bottom:28px; }
+  .eml-check { width:58px; height:58px; border-radius:50%; background:#F5C842; color:#161320; display:flex; align-items:center; justify-content:center; margin:0 auto 20px; }
+  .eml-check svg { width:30px; height:30px; }
+  .eml-eyebrow { font-size:11px; letter-spacing:3px; text-transform:uppercase; color:#F5C842; font-weight:600; margin-bottom:14px; }
+  .eml-h1 { font-weight:700; font-size:27px; line-height:1.15; color:#fff; letter-spacing:-.3px; }
+  .eml-lead { font-size:15px; line-height:1.6; color:#a4a0b5; margin:16px auto 24px; max-width:31ch; }
+  .eml-lead .hl { color:#F5C842; }
+
+  .eml-pad { padding:0 26px; }
+  .eml-btn { display:flex; align-items:center; justify-content:center; gap:9px; background:#F5C842; color:#161320; font-weight:700; font-size:13px; letter-spacing:.5px; text-transform:uppercase; padding:16px 22px; border-radius:11px; }
+  .eml-btn .ar { width:15px; height:15px; }
+  .eml-micro { font-size:12.5px; color:#6f6b82; margin-top:14px; line-height:1.5; text-align:center; }
+
+  .eml-divide { height:1px; background:rgba(255,255,255,.07); margin:0 26px; }
+
+  /* steps */
+  .eml-block { padding:34px 26px; }
+  .eml-sec-label { font-size:11px; letter-spacing:2.5px; text-transform:uppercase; color:#7E87D8; font-weight:600; }
+  .eml-sec-sub { font-size:14px; color:#8a86a0; margin-top:9px; }
+  .eml-steps { margin-top:22px; border-top:1px solid rgba(255,255,255,.07); }
+  .eml-step { display:grid; grid-template-columns:42px 1fr; padding:18px 0; border-bottom:1px solid rgba(255,255,255,.07); }
+  .eml-step .num { font-weight:700; font-size:15px; color:#F5C842; }
+  .eml-step .st-h { font-weight:600; font-size:15px; color:#fff; margin-bottom:6px; }
+  .eml-step .st-b { font-size:13.5px; color:#8a86a0; line-height:1.55; }
+
+  /* 2x band */
+  .eml-2x-wrap { text-align:center; padding:14px 26px 0; }
+  .eml-2x { font-weight:700; font-size:52px; color:#F5C842; line-height:1; }
+  .eml-band-h { font-weight:700; font-size:22px; color:#fff; margin:10px 0; }
+  .eml-band-b { font-size:14px; color:#8a86a0; line-height:1.6; max-width:34ch; margin:0 auto; }
+
+  /* jobs */
+  .eml-jobs { padding:0 26px; margin-top:24px; }
+  .job { background:#211f2d; border:1px solid rgba(255,255,255,.06); border-radius:14px; padding:18px; margin-top:14px; }
+  .job:first-child { margin-top:0; }
+  .job__t { font-weight:600; font-size:15px; color:#fff; }
+  .job__co { font-size:12.5px; color:#F5C842; font-weight:600; margin:5px 0 12px; }
+  .job__spec { font-size:12.5px; color:#9b97ac; line-height:1.5; }
+  .job__foot { display:flex; align-items:center; justify-content:space-between; margin-top:16px; padding-top:14px; border-top:1px solid rgba(255,255,255,.07); }
+  .job__pay { font-weight:600; font-size:15px; color:#fff; }
+  .job__pay span { color:#9b97ac; font-weight:300; }
+  .job__apply { font-size:11px; font-weight:600; letter-spacing:.5px; text-transform:uppercase; color:#7E87D8; white-space:nowrap; }
+  .eml-seeall { display:block; text-align:center; color:#F5C842; font-size:13px; font-weight:600; margin-top:24px; }
+
+  /* cta */
+  .eml-cta { padding:36px 26px; text-align:center; }
+  .eml-cta h3 { font-weight:700; font-size:22px; color:#fff; line-height:1.25; margin-bottom:14px; }
+  .eml-cta p { font-size:14px; color:#8a86a0; line-height:1.6; margin:0 auto 22px; max-width:34ch; }
+  .eml-cta .eml-btn { display:inline-flex; }
+
+  /* footer */
+  .eml-foot { background:#100e18; padding:34px 26px 30px; text-align:center; }
+  .eml-foot__logo { height:20px; width:auto; display:inline-block; margin-bottom:24px; }
+  .eml-foot__nav { display:grid; grid-template-columns:1fr 1fr; column-gap:44px; row-gap:16px; max-width:360px; margin:0 auto 24px; }
+  .eml-foot__nav span { color:#b6b2c4; font-size:11px; letter-spacing:1.5px; text-transform:uppercase; font-weight:400; }
+  .eml-foot__nav span:nth-child(odd) { text-align:right; }
+  .eml-foot__nav span:nth-child(even) { text-align:left; }
+  .eml-foot__rule { width:64px; height:1px; background:rgba(255,255,255,.1); margin:0 auto 20px; }
+  .eml-foot p { font-size:11.5px; color:#6f6b82; line-height:1.7; }
+  .eml-foot .lnk { color:#7E87D8; text-decoration:underline; }
+
+  /* ---------- EMAIL 2 — Welcome & first search ---------- */
+  .eml-topbar { background:#1d1b29; text-align:center; padding:22px 0 20px; }
+  .eml-topbar img { height:20px; width:auto; display:inline-block; }
+  .eml-hero2 img { width:100%; height:300px; object-fit:cover; object-position:center; display:block; }
+  .eml-eyebrow2 { font-size:11px; letter-spacing:2px; text-transform:uppercase; font-weight:600; color:#F5C842; text-align:center; }
+  .eml-eyebrow2 .loc { color:#7E87D8; }
+  .eml-center { text-align:center; padding:24px 26px 0; }
+  .eml-center .eml-h1 { margin-bottom:0; }
+
+  .eml-greet { padding:30px 26px; }
+  .eml-greet .hi { color:#fff; font-size:15px; margin-bottom:14px; }
+  .eml-greet p { font-size:14px; color:#a4a0b5; line-height:1.65; }
+
+  .efeat { background:#3a3563; border-radius:16px; padding:26px 22px 24px; text-align:center; }
+  .efeat__t { font-weight:700; font-size:19px; color:#fff; }
+  .efeat__co { font-size:13px; color:#F5C842; font-weight:600; margin-top:6px; }
+  .efeat__grid { display:flex; justify-content:space-between; gap:16px; margin:20px 0; }
+  .efeat__cell .a { font-size:13px; color:#fff; font-weight:600; }
+  .efeat__cell .b { font-size:12.5px; color:#c3bfe0; margin-top:2px; }
+  .efeat__cell.r { text-align:right; }
+  .efeat__pay { font-weight:700; font-size:18px; color:#fff; }
+  .efeat__btn { display:inline-block; background:#F5C842; color:#161320; font-weight:700; font-size:12px; letter-spacing:.5px; text-transform:uppercase; padding:13px 24px; border-radius:10px; margin-top:18px; }
+
+  .ewhy { padding:0 26px; }
+  .ewhy-list { margin-top:22px; border-top:1px solid rgba(255,255,255,.07); }
+  .ewhy-item { display:grid; grid-template-columns:30px 1fr; padding:18px 0; border-bottom:1px solid rgba(255,255,255,.07); }
+  .ewhy-item .sl { color:#F5C842; font-weight:800; font-style:italic; font-size:16px; }
+  .ewhy-item .h { font-weight:600; font-size:15px; color:#fff; margin-bottom:5px; }
+  .ewhy-item .b { font-size:13.5px; color:#8a86a0; line-height:1.55; }
+  .eml-cta p .hl { color:#F5C842; font-weight:600; }
+
+  /* placeholder phone screen */
+  .soon-screen { display:flex; flex-direction:column; align-items:center; justify-content:center; height:100%; text-align:center; padding:40px; background:#171522; color:#cfc9ec; }
+  .soon-screen .lc { width:54px;height:54px;border-radius:50%; background:rgba(244,200,75,.14); display:flex;align-items:center;justify-content:center; color:#F4C84B; margin-bottom:18px; }
+  .soon-screen h4 { font-family:var(--font-ui); font-weight:600; font-size:18px; color:#fff; margin-bottom:8px; }
+  .soon-screen p { font-size:13px; font-weight:300; line-height:1.5; max-width:24ch; }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="nav">
+  <div class="nav__inner">
+    <div class="nav__links">
+      <div class="nav__dd">
+        <button class="nav__link" aria-haspopup="true">Work <i data-lucide="chevron-down" class="chev" style="width:15px;height:15px"></i></button>
+        <div class="nav__dd-menu" role="menu">
+          <a href="email-marketing.html">Email Marketing <i data-lucide="arrow-right" class="arr" style="width:15px;height:15px"></i></a>
+          <a href="social-media.html">Social Media Design <i data-lucide="arrow-right" class="arr" style="width:15px;height:15px"></i></a>
+          <a href="video-editing.html">Video Editing <i data-lucide="arrow-right" class="arr" style="width:15px;height:15px"></i></a>
+          <a href="photography.html">Photography <i data-lucide="arrow-right" class="arr" style="width:15px;height:15px"></i></a>
+        </div>
+      </div>
+      <a class="nav__link" href="index.html#connect">Connect</a>
+    </div>
+    <a class="nav__chip" href="index.html" style="text-decoration:none">← Tatum Schultz</a>
+  </div>
+</nav>
+
+<!-- COMPANY HEADER -->
+<header class="co-head">
+  <div class="wrap">
+    <a class="crumb" href="email-marketing.html"><i data-lucide="arrow-left" style="width:15px;height:15px"></i> Email Marketing</a>
+    <div class="co-head__row">
+      <div class="co-logo"><img src="assets/logos/findatruckerjob-white.png" alt="FindATruckerJob"></div>
+      <div class="co-head__meta">
+        <h1>FindATruckerJob</h1>
+        <div class="row">
+          <span>Recruitment &amp; Logistics</span><span class="dot"></span>
+          <span>CDL Driver Marketplace</span><span class="dot"></span>
+          <span>A company of Array Corp</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- CAMPAIGN RAIL -->
+<div class="rail-wrap">
+  <div class="wrap">
+    <div class="rail" id="rail">
+      <button class="rail-chip active" data-panel="p1"><span class="idx">01</span> Post-application nurture</button>
+      <button class="rail-chip" data-panel="p2"><span class="idx">02</span> Welcome &amp; first search</button>
+    </div>
+  </div>
+</div>
+
+<!-- PANEL 1 — full -->
+<section class="panel active" id="p1">
+  <div class="wrap">
+    <div class="panel__grid">
+      <div>
+        <p class="eyebrow panel__eyebrow">Campaign 01 — Nurture &amp; re-engagement</p>
+        <h2 class="panel__title">Post-application nurture</h2>
+        <p class="panel__goal">Keep applicants warm in the gap between “apply” and “hear back,” and nudge them to apply to a few roles instead of betting on one — the behavior that gets drivers hired fastest.</p>
+
+        <div class="spec">
+          <div class="spec__row"><div class="spec__k">Audience</div><div class="spec__v">Drivers who applied to a role and are waiting to hear back</div></div>
+          <div class="spec__row"><div class="spec__k">Segment</div><div class="spec__v">Active applicants · 0–3 days post-apply · no second application yet</div></div>
+          <div class="spec__row"><div class="spec__k">Subject</div><div class="spec__v subject">“You applied. Here's what happens next.”</div></div>
+          <div class="spec__row"><div class="spec__k">Format</div><div class="spec__v">Single responsive email · lifecycle trigger</div></div>
+        </div>
+
+        <div class="results">
+          <p class="eyebrow panel__eyebrow">Results</p>
+          <div class="results__grid">
+            <div class="stat"><div class="stat__n">0.6×</div><div class="stat__l">more applications per user</div></div>
+            <div class="stat"><div class="stat__n">−$1</div><div class="stat__l">lower average cost-per-application (CPA)</div></div>
+            <div class="stat"><div class="stat__n">1.5×</div><div class="stat__l">higher response rate — fewer applicants ghosting</div></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- PHONE -->
+      <div class="phone-col">
+        <div class="phone">
+          <div class="phone__screen">
+            <div class="island"></div>
+            <div class="phone__scroll">
+              <div class="statusbar">
+                <span>9:41</span>
+                <span class="si"><i data-lucide="signal"></i><i data-lucide="wifi"></i><i data-lucide="battery-full"></i></span>
+              </div>
+              <div class="mailbar">
+                <i data-lucide="chevron-left" class="chev"></i>
+                <div class="av">F</div>
+                <div class="who">FindATruckerJob<small>to Tatum · Inbox</small></div>
+              </div>
+
+              <!-- EMAIL -->
+              <img class="eml-flat" src="assets/emails/fatj/application.jpg" alt="Post-application nurture email — You're In. Here's What Happens Next.">
+            </div>
+          </div>
+        </div>
+        <div class="scrollhint"><i data-lucide="mouse-pointer-2" style="width:14px;height:14px"></i> Scroll inside the phone to read the full email</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PANEL 2 — full -->
+<section class="panel" id="p2">
+  <div class="wrap"><div class="panel__grid">
+    <div>
+      <p class="eyebrow panel__eyebrow">Campaign 02 — Onboarding</p>
+      <h2 class="panel__title">Welcome &amp; first search</h2>
+      <p class="panel__goal">Activate new sign-ups fast — get a driver from “created a profile” to their first one-click application by surfacing roles like the ones they were already browsing.</p>
+      <div class="spec">
+        <div class="spec__row"><div class="spec__k">Audience</div><div class="spec__v">New drivers who created a profile but haven't applied</div></div>
+        <div class="spec__row"><div class="spec__k">Segment</div><div class="spec__v">0–48 hrs post sign-up · no application yet</div></div>
+        <div class="spec__row"><div class="spec__k">Subject</div><div class="spec__v subject">“{{ first_name }}, still looking? We're hiring near {{ city }}”</div></div>
+        <div class="spec__row"><div class="spec__k">Format</div><div class="spec__v">Single responsive email · personalized job matches</div></div>
+      </div>
+
+      <div class="results">
+        <p class="eyebrow panel__eyebrow">Results</p>
+        <div class="results__grid" style="grid-template-columns:1fr">
+          <div class="stat"><div class="stat__n">1.5×</div><div class="stat__l">increase in sign-up → apply conversion rate</div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- PHONE -->
+    <div class="phone-col">
+      <div class="phone">
+        <div class="phone__screen">
+          <div class="island"></div>
+          <div class="phone__scroll">
+            <div class="statusbar">
+              <span>9:41</span>
+              <span class="si"><i data-lucide="signal"></i><i data-lucide="wifi"></i><i data-lucide="battery-full"></i></span>
+            </div>
+            <div class="mailbar">
+              <i data-lucide="chevron-left" class="chev"></i>
+              <div class="av">F</div>
+              <div class="who">FindATruckerJob<small>to Tatum · Inbox</small></div>
+            </div>
+
+            <!-- EMAIL 2 -->
+            <img class="eml-flat" src="assets/emails/fatj/welcome.jpg" alt="Welcome &amp; first search email — The Road To Something Better Starts With One Search.">
+            <div class="eml" hidden>
+              <div class="eml-topbar"><img src="assets/logos/findatruckerjob-white.png" alt="FindATruckerJob"></div>
+              <div class="eml-hero2"><img src="assets/emails/ftj-truck-hero.png" alt=""></div>
+
+              <div class="eml-center">
+                <div class="eml-eyebrow2">462 trucking jobs near <span class="loc">Almont, Michigan</span></div>
+                <div class="eml-h1" style="margin-top:14px">The Road To Something Better Starts With One Search.</div>
+                <p class="eml-lead">Top-paying CDL routes are filling up right now: local, OTR, flatbed, tanker, and more. We pulled a few worth your time.</p>
+              </div>
+              <div class="eml-pad">
+                <div class="eml-btn">Search jobs <i data-lucide="arrow-right" class="ar"></i></div>
+                <p class="eml-micro">No account needed. Browse every open CDL position in seconds.</p>
+              </div>
+
+              <div class="eml-greet">
+                <div class="eml-divide" style="margin:0 0 30px"></div>
+                <div class="hi">Hi Tatum,</div>
+                <p>The road to something better starts with a single search. Top-paying CDL positions are being filled <b>right now</b>. Whether you want better pay, more home time, or a fresh challenge, the right opportunity is already out there waiting.</p>
+              </div>
+
+              <div class="eml-divide"></div>
+
+              <div class="eml-jobs" style="margin-top:30px">
+                <div class="eml-sec-label">Similar jobs near you</div>
+                <div class="eml-sec-sub" style="margin-bottom:18px">Based on the roles you were browsing.</div>
+
+                <div class="efeat">
+                  <div class="efeat__t">CDL A Truck Driver</div>
+                  <div class="efeat__co">Gulf Eagle Supply</div>
+                  <div class="efeat__grid">
+                    <div class="efeat__cell"><div class="a">Almont, Michigan</div><div class="b">Full Time + Benefits</div></div>
+                    <div class="efeat__cell r"><div class="a">1 Year Experience</div><div class="b">Home Every Night</div></div>
+                  </div>
+                  <div class="efeat__pay">$100,000 per year</div>
+                  <span class="efeat__btn">One-click apply</span>
+                </div>
+
+                <div class="job" style="margin-top:14px">
+                  <div class="job__t">OTR Dry Van Driver</div>
+                  <div class="job__co">Pacific Shipping</div>
+                  <div class="job__spec">$0.51 per mile · 2,500 mi/week · Dry Van 53'</div>
+                  <div class="job__foot">
+                    <div class="job__pay">~$66,000 <span>/ yr</span></div>
+                    <span class="job__apply">View job →</span>
+                  </div>
+                </div>
+                <div class="job">
+                  <div class="job__t">Regional Flatbed Driver</div>
+                  <div class="job__co">Sysco</div>
+                  <div class="job__spec">$1,385 weekly guarantee · Home weekends · No touch</div>
+                  <div class="job__foot">
+                    <div class="job__pay">~$72,000 <span>/ yr</span></div>
+                    <span class="job__apply">View job →</span>
+                  </div>
+                </div>
+              </div>
+
+              <div class="ewhy" style="margin-top:34px">
+                <div class="eml-sec-label">Why drivers use FindATruckerJob</div>
+                <div class="ewhy-list">
+                  <div class="ewhy-item"><div class="sl">//</div><div><div class="h">One-Click Apply</div><div class="b">Apply in a single tap. No resume or account required.</div></div></div>
+                  <div class="ewhy-item"><div class="sl">//</div><div><div class="h">Fresh Listings Daily</div><div class="b">Thousands of CDL openings, refreshed every single day.</div></div></div>
+                  <div class="ewhy-item"><div class="sl">//</div><div><div class="h">Every Route Type, Near You</div><div class="b">Local, regional, OTR, dedicated, flatbed and tanker, filtered to your area.</div></div></div>
+                </div>
+              </div>
+
+              <div class="eml-cta">
+                <h3>Don't Let It Pass You By.</h3>
+                <p>Drivers who apply within the first <span class="hl">48 hours</span> of a listing going live are <span class="hl">3× more likely</span> to get a callback. Search now and get ahead of the pack.</p>
+                <div class="eml-btn">Search jobs near you <i data-lucide="arrow-right" class="ar"></i></div>
+                <p class="eml-micro">Free to browse · No account needed</p>
+              </div>
+
+              <div class="eml-foot">
+                <img class="eml-foot__logo" src="assets/logos/findatruckerjob-white.png" alt="FindATruckerJob">
+                <div class="eml-foot__nav">
+                  <span>Search jobs</span><span>Browse companies</span>
+                  <span>How it works</span><span>Sign in</span>
+                </div>
+                <div class="eml-foot__rule"></div>
+                <p>You're receiving this because you signed up at FindATruckerJob.</p>
+                <p style="margin-top:8px"><span class="lnk">Unsubscribe</span> · <span class="lnk">Update Preferences</span></p>
+                <p style="margin-top:12px">© 2026 FindATruckerJob. All rights reserved.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="scrollhint"><i data-lucide="mouse-pointer-2" style="width:14px;height:14px"></i> Scroll inside the phone to read the full email</div>
+    </div>
+  </div></div>
+</section>
+
+<footer class="site-foot">
+  <div class="site-foot__inner">
+    <span>© 2026 Tatum Schultz</span>
+    <span>Made in Bartlett, New Hampshire</span>
+  </div>
+</footer>
+
+<script>
+  lucide.createIcons();
+  const chips = document.querySelectorAll('#rail .rail-chip');
+  const panels = document.querySelectorAll('.panel');
+  chips.forEach(chip=>{
+    chip.addEventListener('click', ()=>{
+      chips.forEach(c=>c.classList.remove('active'));
+      panels.forEach(p=>p.classList.remove('active'));
+      chip.classList.add('active');
+      document.getElementById(chip.dataset.panel).classList.add('active');
+      window.scrollTo({ top: document.querySelector('.rail-wrap').offsetTop - 72, behavior:'smooth' });
+    });
+  });
+</script>
+</body>
+</html>
