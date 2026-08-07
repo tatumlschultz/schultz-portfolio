@@ -119,6 +119,25 @@
   const S_MAX = 5;
   const clampS = (s) => Math.max(1, Math.min(S_MAX, s));
 
+  // Parse an object-position-style value ("50% 0%", "top", "left top") into
+  // {px, py} percentages. Powers the static crop baseline for cover slots so
+  // authors can frame from the HTML without the drag editor. Returns null for
+  // anything unparseable so the caller falls back to centered.
+  const POS_KW = { left: 0, top: 0, center: 50, right: 100, bottom: 100 };
+  function parsePos(str) {
+    if (!str) return null;
+    const parts = String(str).trim().toLowerCase().split(/\s+/);
+    const val = (t) => (t in POS_KW ? POS_KW[t] : parseFloat(t));
+    const px = val(parts[0]);
+    const py = parts.length > 1 ? val(parts[1]) : (parts[0] in POS_KW && (parts[0] === 'top' || parts[0] === 'bottom') ? 50 : px);
+    if (!Number.isFinite(px) || !Number.isFinite(py)) return null;
+    // A lone "top"/"bottom" keyword means vertical; swap into the y slot.
+    if (parts.length === 1 && (parts[0] === 'top' || parts[0] === 'bottom')) {
+      return { px: 50, py: POS_KW[parts[0]] };
+    }
+    return { px, py };
+  }
+
   // Normalize a stored slot value. Pre-reframe sidecars stored a bare
   // data-URL string; newer ones store {u, s, x, y}. Either shape is valid.
   function getSlot(id) {
@@ -226,7 +245,7 @@
 
   class ImageSlot extends HTMLElement {
     static get observedAttributes() {
-      return ['shape', 'radius', 'mask', 'fit', 'position', 'placeholder', 'src', 'id'];
+      return ['shape', 'radius', 'mask', 'fit', 'position', 'zoom', 'placeholder', 'src', 'id'];
     }
 
     constructor() {
@@ -547,6 +566,26 @@
         this._img.style.objectPosition = this.getAttribute('position') || '50% 50%';
         return;
       }
+      // Static author framing: with no stored drag-reframe, seed the view from
+      // the `zoom` (scale) and `position` (object-position-style) attributes so
+      // the crop can be controlled entirely from the HTML. Skipped mid-drag and
+      // once a reframe is stored so the editor stays authoritative there.
+      if (!this._framed && !this.hasAttribute('data-reframe')) {
+        const z = parseFloat(this.getAttribute('zoom'));
+        this._view.s = Number.isFinite(z) ? clampS(z) : 1;
+        const p = parsePos(this.getAttribute('position'));
+        if (p) {
+          // Max pan on each axis is half the overflow past the frame edge, in
+          // frame-%. object-position px%: 0→+mx (left/top edge), 100→-mx.
+          const mx = Math.max(0, (g.iw * g.base * this._view.s / g.fw - 1) * 50);
+          const my = Math.max(0, (g.ih * g.base * this._view.s / g.fh - 1) * 50);
+          this._view.x = mx * (1 - p.px / 50);
+          this._view.y = my * (1 - p.py / 50);
+        } else {
+          this._view.x = 0;
+          this._view.y = 0;
+        }
+      }
       // Cover baseline: img fills the frame on its tighter axis at s=1, so
       // pan works immediately on the overflowing axis without zooming first.
       // Width/height and left/top are all frame-% — depends only on the
@@ -606,6 +645,11 @@
       const srcAttr = this.getAttribute('src') || '';
       this._userUrl = (stored && stored.u) || null;
       const url = this._userUrl || srcAttr;
+      // A stored reframe (drag-editor geometry) takes precedence over the
+      // author's position/zoom attributes; without one, _applyView derives the
+      // cover baseline from those attributes instead of centering.
+      this._framed = !!(stored && (Number.isFinite(stored.s) ||
+        Number.isFinite(stored.x) || Number.isFinite(stored.y)));
       // Don't clobber an in-flight reframe with a store-triggered re-render.
       if (!this.hasAttribute('data-reframe')) {
         this._view = {
